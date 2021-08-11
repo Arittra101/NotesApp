@@ -1,5 +1,6 @@
 package com.example.project;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
@@ -8,8 +9,13 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -22,7 +28,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getSupportActionBar().hide();     //Action bar hidden
+        getSupportActionBar().hide();          //Action bar hidden
 
         email =  findViewById(R.id.loginEmail);  //getting email Edit Text  access
         pass =  findViewById(R.id.loginPass); // getting pass editText access
@@ -34,6 +40,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         forget.setOnClickListener(this);            //forget button Action Listner
         sign_up.setOnClickListener(this);           // sign up button Action Listener
 
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+        if(firebaseUser!=null)
+        {
+            startActivity(new Intent(getApplicationContext(),NoteFrame.class));
+        }
 
     }
 
@@ -51,7 +62,34 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         else if(v.getId() == R.id.logIN)            //get Log in action method condition
         {
+            String user_mail = email.getText().toString().trim();
+            String user_pass = pass.getText().toString().trim();
+            firebaseAuth.signInWithEmailAndPassword(user_mail,user_pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                @Override
+                public void onComplete(@NonNull Task<AuthResult> task) {
+                        if(task.isSuccessful())
+                        {
+                           checkVarification();
+                        }
+                        else
+                        {
+                            Toast.makeText(getApplicationContext(), "Account Doesn't exist", Toast.LENGTH_SHORT).show();
+                        }
+                }
+            });
 
         }
+    }
+
+   public void checkVarification()
+    {
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+       if(firebaseUser.isEmailVerified()==true)
+       {
+           Toast.makeText(getApplicationContext(), "Successfully Log In", Toast.LENGTH_SHORT).show();
+           startActivity(new Intent(getApplicationContext(),NoteFrame.class));
+       }
+       else
+           Toast.makeText(getApplicationContext(), "Please Varified Your Account", Toast.LENGTH_SHORT).show();
     }
 }

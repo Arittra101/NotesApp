@@ -3,6 +3,7 @@ package com.example.project;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -16,6 +17,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseAuthUserCollisionException;
+import com.google.firebase.auth.FirebaseUser;
 
 public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
@@ -31,12 +33,12 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
         getSupportActionBar().hide();  //  //Action bar hidden
 
 
-        email = findViewById(R.id.userMail);
-        pass = findViewById(R.id.userPass);
+        email = findViewById(R.id.userMail);  //email edit text access
+        pass = findViewById(R.id.userPass);  //pass edit text access
 
-        signUp = findViewById(R.id.sign_up);
+        signUp = findViewById(R.id.sign_up);   //signup button edit text
 
-        signUp.setOnClickListener(this);
+        signUp.setOnClickListener(this);        //click method call
 
     }
 
@@ -76,6 +78,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                     if(task.isSuccessful())
                     {
                         Toast.makeText(getApplicationContext(),"Successfully Registered",Toast.LENGTH_SHORT).show();
+                        sendVerification();
                     }
                     else {
 
@@ -94,5 +97,27 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
     }
 
+    void sendVerification()
+    {
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
+        if(firebaseUser!=null)
+        {
+            firebaseUser.sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+
+                    Toast.makeText(getApplicationContext(),"Varification Email is Sent",Toast.LENGTH_SHORT).show();
+                    firebaseAuth.signOut();
+                    finish();
+                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                }
+            });
+        }
+        else
+        {
+            Toast.makeText(getApplicationContext(),"Failed To Sent Varification",Toast.LENGTH_SHORT).show();
+        }
+
+    }
 
 }
