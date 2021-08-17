@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(firebaseUser!=null)
         {
             startActivity(new Intent(getApplicationContext(),NoteFrame.class));
+
         }
 
     }
@@ -62,14 +63,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         else if(v.getId() == R.id.logIN)            //get Log in action method condition
         {
-            String user_mail = email.getText().toString().trim();
-            String user_pass = pass.getText().toString().trim();
+            String user_mail = email.getText().toString().trim();  //getText from the email edit Text
+            String user_pass = pass.getText().toString().trim();      //getText from the pass edit Text
             firebaseAuth.signInWithEmailAndPassword(user_mail,user_pass).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                 @Override
                 public void onComplete(@NonNull Task<AuthResult> task) {
                         if(task.isSuccessful())
                         {
-                           checkVarification();
+                           checkVarification(); //check the email verification
                         }
                         else
                         {
@@ -81,10 +82,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
-   public void checkVarification()
+   public void checkVarification()  //Verification check method
     {
-        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-       if(firebaseUser.isEmailVerified()==true)
+        FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();  //we have intialize firebaseUser by getCurrentUser();
+       if(firebaseUser.isEmailVerified()==true)    //is valid then below statement will exicute
        {
            Toast.makeText(getApplicationContext(), "Successfully Log In", Toast.LENGTH_SHORT).show();
            startActivity(new Intent(getApplicationContext(),NoteFrame.class));

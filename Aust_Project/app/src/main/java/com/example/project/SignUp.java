@@ -78,7 +78,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                     if(task.isSuccessful())
                     {
                         Toast.makeText(getApplicationContext(),"Successfully Registered",Toast.LENGTH_SHORT).show();
-                        sendVerification();
+                        sendVerification();  //verification sent
                     }
                     else {
 
@@ -97,7 +97,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
     }
 
-    void sendVerification()
+    void sendVerification() //verification sent method
     {
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
         if(firebaseUser!=null)

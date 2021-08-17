@@ -4,6 +4,7 @@ import androidx.annotation.IntegerRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Patterns;
@@ -27,14 +28,14 @@ public class Forget extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forget);
 
-        getSupportActionBar().hide();
+        getSupportActionBar().hide();  //action bar hidden
 
         recover = findViewById(R.id.confirm_email);
         recover_btn = findViewById(R.id.recover);
         recover_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                   String recover_mail = recover.getText().toString().trim();
+                String recover_mail = recover.getText().toString().trim();
                 if(!Patterns.EMAIL_ADDRESS.matcher(recover_mail).matches())
                 {
                     recover.setError("Input Valid Email Address");
