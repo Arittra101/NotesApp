@@ -56,12 +56,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent = new Intent(getApplicationContext(),Forget.class);
             startActivity(intent);
         }
-        else if(v.getId()==R.id.new_user)       //signUp action method condition
+        else if(v.getId()==R.id.new_user)       //signUp action method condition upto
         {
             Intent intent = new Intent(getApplicationContext(),SignUp.class);
             startActivity(intent);
         }
-        else if(v.getId() == R.id.logIN)            //get Log in action method conditions
+        else if(v.getId() == R.id.logIN)            //get Log in action method condition
         {
             String user_mail = email.getText().toString().trim();  //getText from the email edit Text
             String user_pass = pass.getText().toString().trim();      //getText from the pass edit Text
