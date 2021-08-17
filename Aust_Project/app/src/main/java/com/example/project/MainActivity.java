@@ -1,11 +1,14 @@
 package com.example.project;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -47,8 +50,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         }
 
+
     }
 
+    public void dioluge_pop(String about)
+    {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(MainActivity.this);
+        ViewGroup viewGroup = findViewById(android.R.id.content);
+        View v = new View(MainActivity.this) ;
+        View dialogView = LayoutInflater.from(v.getContext()).inflate(R.layout.notice_pop,viewGroup,false);
+        builder.setView(dialogView);
+        final AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+        Button ok = dialogView.findViewById(R.id.ok);
+        TextView msg = dialogView.findViewById(R.id.about);
+        msg.setText(about);
+        ok.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+    }
     @Override
     public void onClick(View v) {
         if(v.getId()==R.id.forgetPass)    //forget Password action method conditions
@@ -87,7 +111,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();  //we have intialize firebaseUser by getCurrentUser();
        if(firebaseUser.isEmailVerified()==true)    //is valid then below statement will exicute
        {
-           Toast.makeText(getApplicationContext(), "Successfully Log In", Toast.LENGTH_SHORT).show();
+//           dioluge_pop("Succesfully Log In");
+          // Toast.makeText(getApplicationContext(), "Successfully Log In", Toast.LENGTH_SHORT).show();
            startActivity(new Intent(getApplicationContext(),NoteFrame.class));
        }
        else
