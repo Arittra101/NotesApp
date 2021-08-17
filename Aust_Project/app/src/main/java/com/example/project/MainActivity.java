@@ -51,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        if(v.getId()==R.id.forgetPass)    //forget Password action method condition
+        if(v.getId()==R.id.forgetPass)    //forget Password action method conditions
         {
             Intent intent = new Intent(getApplicationContext(),Forget.class);
             startActivity(intent);
@@ -61,7 +61,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             Intent intent = new Intent(getApplicationContext(),SignUp.class);
             startActivity(intent);
         }
-        else if(v.getId() == R.id.logIN)            //get Log in action method condition
+        else if(v.getId() == R.id.logIN)            //get Log in action method conditions
         {
             String user_mail = email.getText().toString().trim();  //getText from the email edit Text
             String user_pass = pass.getText().toString().trim();      //getText from the pass edit Text
