@@ -56,8 +56,6 @@ public class Forget extends AppCompatActivity {
                         }
                     });
                 }
-
-
             }
         });
 
