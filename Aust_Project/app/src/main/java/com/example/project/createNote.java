@@ -44,8 +44,8 @@ public class createNote extends AppCompatActivity implements View.OnClickListene
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 //
-        firebaseUser = firebaseAuth.getCurrentUser();
-        firebaseFirestore = firebaseFirestore.getInstance();
+        firebaseUser = firebaseAuth.getCurrentUser();           //user inialize we can get id from it
+        firebaseFirestore = firebaseFirestore.getInstance();   //firestore root
 //
 //
         save_note.setOnClickListener(this);
@@ -66,7 +66,8 @@ public class createNote extends AppCompatActivity implements View.OnClickListene
             }
             else
             {
-                DocumentReference documentReference = firebaseFirestore.collection("notes").document(firebaseUser.getUid()).collection("mynotes").document();
+                DocumentReference documentReference = firebaseFirestore.collection("notes").document(firebaseUser.getUid()).collection("myNotes").document();
+//                DocumentReference documentReference = firebaseFirestore.collection("Notes").document();
                 Map<String,Object> m = new HashMap<>();
                 m.put("title",s_title);
                 m.put("content",s_written_note);
@@ -75,6 +76,7 @@ public class createNote extends AppCompatActivity implements View.OnClickListene
                     @Override
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(getApplicationContext(),"Done",Toast.LENGTH_SHORT).show();
+                        finish();
                         startActivity(new Intent(createNote.this,NoteFrame.class));
                     }
                 }).addOnFailureListener(new OnFailureListener() {
@@ -85,6 +87,7 @@ public class createNote extends AppCompatActivity implements View.OnClickListene
                 });
 
 
+                DocumentReference documentReference1 = firebaseFirestore.collection("Notes").document();
             }
 
 

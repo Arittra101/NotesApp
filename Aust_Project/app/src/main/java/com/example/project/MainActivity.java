@@ -83,7 +83,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         else if(v.getId()==R.id.new_user)       //signUp action method condition upto
         {
             Intent intent = new Intent(getApplicationContext(),SignUp.class);
+
             startActivity(intent);
+//            finish();
         }
         else if(v.getId() == R.id.logIN)            //get Log in action method condition
         {

@@ -107,7 +107,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                 public void onComplete(@NonNull Task<Void> task) {
 
                     Toast.makeText(getApplicationContext(),"Varification Email is Sent",Toast.LENGTH_SHORT).show();
-                    firebaseAuth.signOut();
+                    firebaseAuth.signOut(); //must
                     finish();
                     startActivity(new Intent(getApplicationContext(),MainActivity.class));
                 }
