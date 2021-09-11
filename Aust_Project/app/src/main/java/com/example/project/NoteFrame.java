@@ -1,30 +1,41 @@
 package com.example.project;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupMenu;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.firestore.FirestoreRecyclerAdapter;
 import com.firebase.ui.firestore.FirestoreRecyclerOptions;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
+
+import java.util.ArrayList;
+import java.util.Random;
 
 public class  NoteFrame extends AppCompatActivity implements View.OnClickListener {
 
@@ -34,6 +45,7 @@ public class  NoteFrame extends AppCompatActivity implements View.OnClickListene
     RecyclerView mrecylerview;
     StaggeredGridLayoutManager staggeredGridLayoutManager;
     FirebaseUser firebaseUser;
+
     FirebaseFirestore firebaseFirestore;
 
     FirestoreRecyclerAdapter<firebasemodel,Noteviewholder> noteAdapter;
@@ -58,11 +70,80 @@ public class  NoteFrame extends AppCompatActivity implements View.OnClickListene
 
 
         noteAdapter = new FirestoreRecyclerAdapter<firebasemodel, Noteviewholder>(allusernotes) {
+            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             protected void onBindViewHolder(@NonNull Noteviewholder noteviewholder, int i, @NonNull firebasemodel firebasemodel) {
+                //just set anything use this method
 
+
+                int colorcode = getRandomColor();
+                noteviewholder.mnote.setBackgroundColor(noteviewholder.itemView.getResources().getColor(colorcode,null));
                 noteviewholder.notetitle.setText(firebasemodel.getTitle());
                 noteviewholder.notecontent.setText(firebasemodel.getContent());
+                //all view access u get in Noteviewholder class.just use the onject
+
+                String docId = noteAdapter.getSnapshots().getSnapshot(i).getId();
+
+                noteviewholder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        Intent intent = new Intent(v.getContext(),notedetails.class);
+                        intent.putExtra("title",firebasemodel.getTitle());
+                        intent.putExtra("content",firebasemodel.getContent());
+                        intent.putExtra("noteId",docId);
+                        v.getContext().startActivity(intent);
+//                        Toast.makeText(getApplicationContext(),"This is clicked",Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                noteviewholder.popupbutton.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View v) {
+                        PopupMenu popupMenu = new PopupMenu(v.getContext(),v);
+                        popupMenu.setGravity(Gravity.END);
+                        popupMenu.getMenu().add("Edit").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem item) {
+
+                                Intent intent = new Intent(v.getContext(),editnoteactivity.class);
+                                intent.putExtra("title",firebasemodel.getTitle());
+                                intent.putExtra("content",firebasemodel.getTitle());
+                                intent.putExtra("noteId",docId);
+                                v.getContext().startActivity(intent);
+                                return false;
+                            }
+                        });
+
+                        popupMenu.getMenu().add("Delete").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem item) {
+
+                                DocumentReference documentReference = firebaseFirestore.collection("notes").document(firebaseUser.getUid()).collection("myNotes").document(docId);
+                               documentReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                   @Override
+                                   public void onSuccess(Void aVoid) {
+
+                                       Toast.makeText(getApplicationContext(),"Successfully Deleted",Toast.LENGTH_SHORT).show();
+                                   }
+                               }).addOnFailureListener(new OnFailureListener() {
+                                   @Override
+                                   public void onFailure(@NonNull Exception e) {
+                                       Toast.makeText(getApplicationContext(),"Failure to Delete",Toast.LENGTH_SHORT).show();
+                                   }
+                               });
+
+                                Toast.makeText(v.getContext(),"Delete This Note Successfully",Toast.LENGTH_SHORT).show();
+                                return false;
+                            }
+                        });
+
+                        popupMenu.show();
+                    }
+
+                });
+
             }
 
             @NonNull
@@ -87,6 +168,7 @@ public class  NoteFrame extends AppCompatActivity implements View.OnClickListene
 
         private TextView notetitle;
         private TextView notecontent;
+        private ImageView popupbutton;
         LinearLayout mnote;
         public Noteviewholder(@NonNull View itemView)
         {
@@ -94,6 +176,7 @@ public class  NoteFrame extends AppCompatActivity implements View.OnClickListene
             notetitle = itemView.findViewById(R.id.notetitle);
             notecontent =  itemView.findViewById(R.id.notecontent);
             mnote = itemView.findViewById(R.id.note);
+            popupbutton= itemView.findViewById(R.id.menupopbutton);
 
         }
     }
@@ -149,7 +232,6 @@ public class  NoteFrame extends AppCompatActivity implements View.OnClickListene
 
         if(item.getItemId()==R.id.LO)
         {
-
           logOut();
         }
         return super.onOptionsItemSelected(item);
@@ -176,8 +258,22 @@ public class  NoteFrame extends AppCompatActivity implements View.OnClickListene
         super.onStop();
         if(noteAdapter!=null)
         {
-            noteAdapter.startListening();
+            noteAdapter.stopListening();
         }
     }
+
+   private int getRandomColor(){
+        ArrayList<Integer> colorCode = new ArrayList<>();
+        colorCode.add(R.color.blue2);
+        colorCode.add(R.color.sky_blue);
+        colorCode.add(R.color.sky_blue2);
+        colorCode.add(R.color.white);
+        colorCode.add(R.color.yellow);
+        colorCode.add(R.color.Pink);
+
+        Random random = new Random();   //for random input
+        int number = random.nextInt(colorCode.size());    //nextInt use for unput ->> Scanner sc = new Scanner(System.in)->> sc.nextInt()-<  one int get Input
+        return colorCode.get(number);
+   }
 
 }

@@ -26,7 +26,7 @@
        <TextView
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
-           android:text="Welcome Back OMG76"
+           android:text="Welcome Back"
            android:textColor="#094AEA"
            android:textSize="42sp"
            android:textStyle="bold">
