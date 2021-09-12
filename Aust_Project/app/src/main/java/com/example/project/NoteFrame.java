@@ -264,12 +264,18 @@ public class  NoteFrame extends AppCompatActivity implements View.OnClickListene
 
    private int getRandomColor(){
         ArrayList<Integer> colorCode = new ArrayList<>();
-        colorCode.add(R.color.blue2);
+        colorCode.add(R.color.gray);
         colorCode.add(R.color.sky_blue);
         colorCode.add(R.color.sky_blue2);
-        colorCode.add(R.color.white);
+        colorCode.add(R.color.green);
         colorCode.add(R.color.yellow);
+        colorCode.add(R.color.white1);
+        colorCode.add(R.color.white2);
+        colorCode.add(R.color.white3);
+        colorCode.add(R.color.green2);
+        colorCode.add(R.color.green3);
         colorCode.add(R.color.Pink);
+        colorCode.add(R.color.red);
 
         Random random = new Random();   //for random input
         int number = random.nextInt(colorCode.size());    //nextInt use for unput ->> Scanner sc = new Scanner(System.in)->> sc.nextInt()-<  one int get Input
