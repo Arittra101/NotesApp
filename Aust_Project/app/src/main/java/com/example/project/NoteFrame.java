@@ -35,6 +35,9 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 public class  NoteFrame extends AppCompatActivity implements View.OnClickListener {
@@ -62,8 +65,8 @@ public class  NoteFrame extends AppCompatActivity implements View.OnClickListene
 
         firebaseUser =FirebaseAuth.getInstance().getCurrentUser();
         firebaseFirestore = FirebaseFirestore.getInstance();
-
-        Query query = firebaseFirestore.collection("notes").document(firebaseUser.getUid()).collection("myNotes").orderBy("title", Query.Direction.ASCENDING);
+        String one = "1";
+        Query query = firebaseFirestore.collection("notes").document(firebaseUser.getUid()).collection("myNotes").orderBy("bookmark");
 
         FirestoreRecyclerOptions<firebasemodel> allusernotes = new FirestoreRecyclerOptions.Builder<firebasemodel>().setQuery(query,firebasemodel.class).build();
         //user note collect
@@ -78,11 +81,48 @@ public class  NoteFrame extends AppCompatActivity implements View.OnClickListene
 
                 int colorcode = getRandomColor();
                 noteviewholder.mnote.setBackgroundColor(noteviewholder.itemView.getResources().getColor(colorcode,null));
-                noteviewholder.notetitle.setText(firebasemodel.getTitle());
+                noteviewholder.notetitle.setText(firebasemodel.getTitle());    //model get
                 noteviewholder.notecontent.setText(firebasemodel.getContent());
                 //all view access u get in Noteviewholder class.just use the onject
-
                 String docId = noteAdapter.getSnapshots().getSnapshot(i).getId();
+
+                noteviewholder.bookmarkimageview.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        Toast.makeText(getApplicationContext(),firebasemodel.getBookmark()+ "Ok saved",Toast.LENGTH_SHORT).show();
+                        FirebaseFirestore root = FirebaseFirestore.getInstance();
+                        DocumentReference documentReference = root.collection("notes").document(firebaseUser.getUid()).collection("Bookmark").document(docId);
+
+                        Map<String,Object> m = new HashMap<>();
+                        m.put("title",firebasemodel.getTitle());
+                        m.put("content",firebasemodel.getContent());
+
+                        documentReference.set(m).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(getApplicationContext(),"OK Done",Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+                       documentReference = firebaseFirestore.collection("notes").document(firebaseUser.getUid()).collection("myNotes").document(docId);
+                       Map<String,Object> m1 = new HashMap<>();
+                       String  bk = "0";
+                        m1.put("title",firebasemodel.getTitle());
+                        m1.put("content",firebasemodel.getContent());
+                        m1.put("bookmark",bk);
+                       documentReference.set(m1).addOnSuccessListener(new OnSuccessListener<Void>() {
+                           @Override
+                           public void onSuccess(Void aVoid) {
+
+                           }
+                       });
+
+
+
+                    }
+                });
+
 
                 noteviewholder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -155,6 +195,7 @@ public class  NoteFrame extends AppCompatActivity implements View.OnClickListene
         };
 //
 //
+
         mrecylerview = findViewById(R.id.recycler);
         mrecylerview.setHasFixedSize(true);
         staggeredGridLayoutManager = new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL);
@@ -162,6 +203,8 @@ public class  NoteFrame extends AppCompatActivity implements View.OnClickListene
 
         mrecylerview.setAdapter(noteAdapter);
         createNotesfab.setOnClickListener(this);     //note add button
+
+
     }
 
     public class Noteviewholder extends RecyclerView.ViewHolder{
@@ -169,6 +212,7 @@ public class  NoteFrame extends AppCompatActivity implements View.OnClickListene
         private TextView notetitle;
         private TextView notecontent;
         private ImageView popupbutton;
+        private ImageView bookmarkimageview;
         LinearLayout mnote;
         public Noteviewholder(@NonNull View itemView)
         {
@@ -177,6 +221,7 @@ public class  NoteFrame extends AppCompatActivity implements View.OnClickListene
             notecontent =  itemView.findViewById(R.id.notecontent);
             mnote = itemView.findViewById(R.id.note);
             popupbutton= itemView.findViewById(R.id.menupopbutton);
+            bookmarkimageview = itemView.findViewById(R.id.book_mark_icon);
 
         }
     }
@@ -233,6 +278,11 @@ public class  NoteFrame extends AppCompatActivity implements View.OnClickListene
         if(item.getItemId()==R.id.LO)
         {
           logOut();
+        }
+        if(item.getItemId()==R.id.bookmark)
+        {
+           // finish();
+            startActivity(new Intent(getApplicationContext(),Bookmark.class));
         }
         return super.onOptionsItemSelected(item);
     }

@@ -4,6 +4,7 @@ public class firebasemodel {
 
         private String title;
         private String content;
+        private  String bookmark;
 
         public  firebasemodel()
         {
@@ -29,5 +30,13 @@ public class firebasemodel {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public void setBookmark(String bookmark) {
+        this.bookmark = bookmark;
+    }
+
+    public String getBookmark() {
+        return bookmark;
     }
 }

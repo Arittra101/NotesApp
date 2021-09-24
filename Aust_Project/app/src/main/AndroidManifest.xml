@@ -9,8 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Project">
-        <activity android:name=".notedetails"></activity>
-        <activity android:name=".editnoteactivity"
+        <activity android:name=".Bookmark"></activity>
+        <activity android:name=".notedetails" />
+        <activity
+            android:name=".editnoteactivity"
             android:theme="@style/Theme.AppCompat.DayNight.NoActionBar" />
         <activity
             android:name=".createNote"

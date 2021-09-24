@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="10dp"
@@ -42,6 +43,16 @@
                     android:textColor="@color/black"
                     android:text="This is Your Developer">
                 </TextView>
+
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/book_mark_icon"
+                    android:src="@drawable/ic_baseline_bookmark_border_24"
+                    android:layout_weight="0">
+
+                </ImageView>
 
                 <ImageView
                     android:layout_width="wrap_content"

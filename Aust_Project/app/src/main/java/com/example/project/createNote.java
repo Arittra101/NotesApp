@@ -45,7 +45,7 @@ public class createNote extends AppCompatActivity implements View.OnClickListene
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 //
         firebaseUser = firebaseAuth.getCurrentUser();           //user inialize we can get id from it
-        firebaseFirestore = firebaseFirestore.getInstance();   //firestore root
+        firebaseFirestore = FirebaseFirestore.getInstance();   //firestore root
 //
 //
         save_note.setOnClickListener(this);
@@ -87,7 +87,7 @@ public class createNote extends AppCompatActivity implements View.OnClickListene
                 });
 
 
-                DocumentReference documentReference1 = firebaseFirestore.collection("Notes").document();
+//                DocumentReference documentReference1 = firebaseFirestore.collection("Notes").document();
             }
 
 
