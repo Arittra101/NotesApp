@@ -68,6 +68,7 @@ public class  NoteFrame extends AppCompatActivity implements View.OnClickListene
         String one = "1";
         Query query = firebaseFirestore.collection("notes").document(firebaseUser.getUid()).collection("myNotes").orderBy("bookmark");
 
+        //all user notes collected in allusernotes->>>>>>>
         FirestoreRecyclerOptions<firebasemodel> allusernotes = new FirestoreRecyclerOptions.Builder<firebasemodel>().setQuery(query,firebasemodel.class).build();
         //user note collect
 
@@ -78,52 +79,128 @@ public class  NoteFrame extends AppCompatActivity implements View.OnClickListene
             protected void onBindViewHolder(@NonNull Noteviewholder noteviewholder, int i, @NonNull firebasemodel firebasemodel) {
                 //just set anything use this method
 
-
+                String docId = noteAdapter.getSnapshots().getSnapshot(i).getId();
                 int colorcode = getRandomColor();
                 noteviewholder.mnote.setBackgroundColor(noteviewholder.itemView.getResources().getColor(colorcode,null));
                 noteviewholder.notetitle.setText(firebasemodel.getTitle());    //model get
                 noteviewholder.notecontent.setText(firebasemodel.getContent());
-                //all view access u get in Noteviewholder class.just use the onject
-                String docId = noteAdapter.getSnapshots().getSnapshot(i).getId();
 
+                //check is it zero or One->>>>>>>>>>>>
+                String check = "0";
+                if(firebasemodel.getBookmark().equals(check))
+                {
+                    noteviewholder.bookmarkimageview.setVisibility(View.INVISIBLE);
+                    noteviewholder.bookmarkdoneview.setVisibility(View.VISIBLE);
+                   // Toast.makeText(getApplicationContext(),firebasemodel.getBookmark()+ "Already Saved",Toast.LENGTH_SHORT).show();
+                }
+                else
+                {
+                    noteviewholder.bookmarkimageview.setVisibility(View.VISIBLE);
+                    noteviewholder.bookmarkdoneview.setVisibility(View.INVISIBLE);
+                }
+                //check is it zero or One
+
+
+
+
+
+                //bookmark deleted bookmardone view ->>>>>>>>>>>>>>
+                noteviewholder.bookmarkdoneview.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Map<String,Object> m = new HashMap<>();
+
+                        String check = "1";
+                        m.put("bookmark",check);
+                        m.put("title",firebasemodel.getTitle());
+                        m.put("content",firebasemodel.getContent());
+
+                        //update bookmark data zero -> one so that view will be chagnge
+                        DocumentReference documentReference = firebaseFirestore.collection("notes").document(firebaseUser.getUid()).collection("myNotes").document(docId);
+                        documentReference.set(m).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(getApplicationContext(),firebasemodel.getBookmark()+ "zero to one done",Toast.LENGTH_SHORT).show();
+                            }
+                        });
+
+
+
+                        //delete data also from book mark ->>>>>
+                        documentReference =  firebaseFirestore.collection("notes").document(firebaseUser.getUid()).collection("Bookmark").document(docId);
+                        documentReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(getApplicationContext(),"Deleted From BookMark",Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                        //delete data also from book mark 
+
+                    }
+
+
+                });
+                //bookmark deleted bookmardone view
+
+
+
+
+
+                //bookmarkadd set action listener-->>>>>>>>>>
                 noteviewholder.bookmarkimageview.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
 
-                        Toast.makeText(getApplicationContext(),firebasemodel.getBookmark()+ "Ok saved",Toast.LENGTH_SHORT).show();
-                        FirebaseFirestore root = FirebaseFirestore.getInstance();
-                        DocumentReference documentReference = root.collection("notes").document(firebaseUser.getUid()).collection("Bookmark").document(docId);
+                       // Toast.makeText(getApplicationContext(),firebasemodel.getBookmark()+ "Ok saved",Toast.LENGTH_SHORT).show();
+                        String check="0";
+                        if(firebasemodel.getBookmark().equals(check))
+                        {
+                            Toast.makeText(getApplicationContext(),firebasemodel.getBookmark()+ "Already Saved",Toast.LENGTH_SHORT).show();
+                        }
+                        else{
+                            FirebaseFirestore root = FirebaseFirestore.getInstance();
+                            DocumentReference documentReference = root.collection("notes").document(firebaseUser.getUid()).collection("Bookmark").document(docId);
 
-                        Map<String,Object> m = new HashMap<>();
-                        m.put("title",firebasemodel.getTitle());
-                        m.put("content",firebasemodel.getContent());
+                            Map<String,Object> m = new HashMap<>();
+                            m.put("title",firebasemodel.getTitle());
+                            m.put("content",firebasemodel.getContent());
 
-                        documentReference.set(m).addOnSuccessListener(new OnSuccessListener<Void>() {
-                            @Override
-                            public void onSuccess(Void aVoid) {
-                                Toast.makeText(getApplicationContext(),"OK Done",Toast.LENGTH_SHORT).show();
-                            }
-                        });
+                            documentReference.set(m).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
+                                    //here
+                                    noteviewholder.bookmarkimageview.setVisibility(View.INVISIBLE);
+                                    noteviewholder.bookmarkdoneview.setVisibility(View.VISIBLE);
+                                    Toast.makeText(getApplicationContext(),"OK Done",Toast.LENGTH_SHORT).show();
+                                }
+                            });
 
-                       documentReference = firebaseFirestore.collection("notes").document(firebaseUser.getUid()).collection("myNotes").document(docId);
-                       Map<String,Object> m1 = new HashMap<>();
-                       String  bk = "0";
-                        m1.put("title",firebasemodel.getTitle());
-                        m1.put("content",firebasemodel.getContent());
-                        m1.put("bookmark",bk);
-                       documentReference.set(m1).addOnSuccessListener(new OnSuccessListener<Void>() {
-                           @Override
-                           public void onSuccess(Void aVoid) {
+                            documentReference = firebaseFirestore.collection("notes").document(firebaseUser.getUid()).collection("myNotes").document(docId);
+                            Map<String,Object> m1 = new HashMap<>();
+                            String  bk = "0";
+                            m1.put("title",firebasemodel.getTitle());
+                            m1.put("content",firebasemodel.getContent());
+                            m1.put("bookmark",bk);
+                            documentReference.set(m1).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                @Override
+                                public void onSuccess(Void aVoid) {
 
-                           }
-                       });
-
+                                }
+                            });
+                        }
 
 
                     }
                 });
+                //bookmarkadd set action listener
 
 
+
+
+
+
+
+                //itemView details intent work here->>>>>>>>>>>>>>>>>
                 noteviewholder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -136,7 +213,15 @@ public class  NoteFrame extends AppCompatActivity implements View.OnClickListene
 //                        Toast.makeText(getApplicationContext(),"This is clicked",Toast.LENGTH_SHORT).show();
                     }
                 });
+                //itemView details intent work here
 
+
+
+
+
+
+
+                //popUp button all work here ->>>>>>>>>>>>>>>>>>
                 noteviewholder.popupbutton.setOnClickListener(new View.OnClickListener() {
 
                     @Override
@@ -183,8 +268,11 @@ public class  NoteFrame extends AppCompatActivity implements View.OnClickListene
                     }
 
                 });
+                //popUp button all work here ->>>>>>>>>>>
 
             }
+            //end of all bindViewholder all the access are here->>>>>>>>>>>>
+
 
             @NonNull
             @Override
@@ -213,6 +301,7 @@ public class  NoteFrame extends AppCompatActivity implements View.OnClickListene
         private TextView notecontent;
         private ImageView popupbutton;
         private ImageView bookmarkimageview;
+        private ImageView bookmarkdoneview;
         LinearLayout mnote;
         public Noteviewholder(@NonNull View itemView)
         {
@@ -222,6 +311,7 @@ public class  NoteFrame extends AppCompatActivity implements View.OnClickListene
             mnote = itemView.findViewById(R.id.note);
             popupbutton= itemView.findViewById(R.id.menupopbutton);
             bookmarkimageview = itemView.findViewById(R.id.book_mark_icon);
+            bookmarkdoneview =  itemView.findViewById(R.id.book_mark_done_icon);
 
         }
     }
@@ -330,6 +420,11 @@ public class  NoteFrame extends AppCompatActivity implements View.OnClickListene
         Random random = new Random();   //for random input
         int number = random.nextInt(colorCode.size());    //nextInt use for unput ->> Scanner sc = new Scanner(System.in)->> sc.nextInt()-<  one int get Input
         return colorCode.get(number);
+   }
+
+   public void unsaved()
+   {
+
    }
 
 }

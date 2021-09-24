@@ -53,6 +53,15 @@
                     android:layout_weight="0">
 
                 </ImageView>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:id="@+id/book_mark_done_icon"
+                    android:visibility="invisible"
+                    android:src="@drawable/ic_baseline_bookmark_24"
+                    android:layout_weight="0">
+
+                </ImageView>
 
                 <ImageView
                     android:layout_width="wrap_content"

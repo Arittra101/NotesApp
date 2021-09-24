@@ -68,9 +68,11 @@ public class createNote extends AppCompatActivity implements View.OnClickListene
             {
                 DocumentReference documentReference = firebaseFirestore.collection("notes").document(firebaseUser.getUid()).collection("myNotes").document();
 //                DocumentReference documentReference = firebaseFirestore.collection("Notes").document();
+                String one="1";
                 Map<String,Object> m = new HashMap<>();
                 m.put("title",s_title);
                 m.put("content",s_written_note);
+                m.put("bookmark",one);
                 documentReference.set(m).addOnSuccessListener(new OnSuccessListener<Void>()
                 {
                     @Override

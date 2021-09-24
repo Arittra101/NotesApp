@@ -10,10 +10,11 @@ public class firebasemodel {
         {
 
         }
-        public firebasemodel(String title,String content)
+        public firebasemodel(String title,String content,String bookmark)
         {
             this.title =title;
             this.content =content;
+            this.bookmark = bookmark;
         }
 
     public String getContent() {
