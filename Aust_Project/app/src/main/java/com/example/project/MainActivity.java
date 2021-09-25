@@ -47,7 +47,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(firebaseUser!=null)
         {
 //            startActivity(new Intent(getApplicationContext(),NoteFrame.class));
-            startActivity(new Intent(getApplicationContext(),CheckList.class));
+            startActivity(new Intent(getApplicationContext(),Dashboard.class));
 
         }
 
@@ -116,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
        {
 //           dioluge_pop("Succesfully Log In");
           // Toast.makeText(getApplicationContext(), "Successfully Log In", Toast.LENGTH_SHORT).show();
-           startActivity(new Intent(getApplicationContext(),CheckList.class));
+           startActivity(new Intent(getApplicationContext(),Dashboard.class));
        }
        else
            Toast.makeText(getApplicationContext(), "Please Varified Your Account", Toast.LENGTH_SHORT).show();

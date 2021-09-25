@@ -32,7 +32,7 @@ public class editnoteactivity extends AppCompatActivity {
     String title;
     String content;
     String noteId;
-
+    String book;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +47,7 @@ public class editnoteactivity extends AppCompatActivity {
          title = data.getStringExtra("title");
          content = data.getStringExtra("content");
          noteId = data.getStringExtra("noteId");
+         book = data.getStringExtra("Bookmark");
 
         edit_title =  findViewById(R.id.titleedit);
         edit_content = findViewById(R.id.contentofnotedit);
@@ -72,6 +73,8 @@ public class editnoteactivity extends AppCompatActivity {
                 String title_content = edit_content.getText().toString();
                 note.put("title",title_get);
                 note.put("content",  title_content);
+                note.put("bookmark",book);
+
 
                 documentReference.set(note).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override

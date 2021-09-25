@@ -209,6 +209,7 @@ public class  NoteFrame extends AppCompatActivity implements View.OnClickListene
                         intent.putExtra("title",firebasemodel.getTitle());
                         intent.putExtra("content",firebasemodel.getContent());
                         intent.putExtra("noteId",docId);
+                        intent.putExtra("Bookmark",firebasemodel.getBookmark());
                         v.getContext().startActivity(intent);
 //                        Toast.makeText(getApplicationContext(),"This is clicked",Toast.LENGTH_SHORT).show();
                     }
@@ -236,6 +237,7 @@ public class  NoteFrame extends AppCompatActivity implements View.OnClickListene
                                 intent.putExtra("title",firebasemodel.getTitle());
                                 intent.putExtra("content",firebasemodel.getTitle());
                                 intent.putExtra("noteId",docId);
+                                intent.putExtra("Bookmark",firebasemodel.getBookmark());
                                 v.getContext().startActivity(intent);
                                 return false;
                             }

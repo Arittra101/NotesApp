@@ -22,7 +22,7 @@ public class AddTask extends AppCompatActivity implements View.OnClickListener {
 
     FirebaseUser User = FirebaseAuth.getInstance().getCurrentUser();
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
-    DocumentReference documentReference ;
+    DocumentReference documentReference;
     EditText editTask;
     FloatingActionButton savetaskfabbutton;
 

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context=".pdfUplpad">
 
     <EditText
@@ -20,5 +21,11 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/editText"
+        android:layout_centerHorizontal="true"
+        android:text="Upload File"
+        android:textSize="20sp"
+        android:id="@+id/uploadView"
+        android:textColor="#009688"
       ></Button>
 </RelativeLayout>
