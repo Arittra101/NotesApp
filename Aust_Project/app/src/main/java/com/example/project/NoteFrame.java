@@ -134,7 +134,7 @@ public class  NoteFrame extends AppCompatActivity implements View.OnClickListene
                                 Toast.makeText(getApplicationContext(),"Deleted From BookMark",Toast.LENGTH_SHORT).show();
                             }
                         });
-                        //delete data also from book mark 
+                        //delete data also from book mark
 
                     }
 
