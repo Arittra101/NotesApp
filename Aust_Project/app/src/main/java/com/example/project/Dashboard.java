@@ -45,7 +45,7 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
         }
         if(v.getId()==R.id.pdfView)
         {
-
+            startActivity(new Intent(getApplicationContext(),pdfUplpad.class));
         }
     }
 }

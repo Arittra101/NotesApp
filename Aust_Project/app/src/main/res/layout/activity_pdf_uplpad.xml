@@ -27,5 +27,16 @@
         android:textSize="20sp"
         android:id="@+id/uploadView"
         android:textColor="#009688"
-      ></Button>
+      />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/uploadView"
+        android:layout_centerHorizontal="true"
+        android:text="Retrieve Pdf"
+        android:textSize="20sp"
+        android:layout_marginTop="10dp"
+        android:id="@+id/retrieve"
+        android:textColor="#009688"
+        />
 </RelativeLayout>
