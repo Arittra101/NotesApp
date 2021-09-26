@@ -31,6 +31,7 @@ public class notedetails extends AppCompatActivity {
         edit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                finish();
                 Intent intent = new Intent(v.getContext(),editnoteactivity.class);
                 intent.putExtra("title",data.getStringExtra("title"));
                 intent.putExtra("content",data.getStringExtra("content"));
@@ -54,5 +55,10 @@ public class notedetails extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        this.finish();
     }
 }

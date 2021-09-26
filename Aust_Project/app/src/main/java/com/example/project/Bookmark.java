@@ -133,4 +133,9 @@ public class Bookmark extends AppCompatActivity {
             recyclerAdapter.stopListening();
         }
     }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        this.finish();
+    }
 }

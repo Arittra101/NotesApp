@@ -39,12 +39,12 @@ public class RetrievePdf extends AppCompatActivity {
 
         uploadedPDF = new ArrayList<>();
 
-        user = FirebaseAuth.getInstance().getCurrentUser();
-        databaseReference = FirebaseDatabase.getInstance().getReference("uploadPDF").child(user.getUid());
+        user = FirebaseAuth.getInstance().getCurrentUser();   //user id
+        databaseReference = FirebaseDatabase.getInstance().getReference("uploadPDF").child(user.getUid());  //reference
 
-        retrievePDFFiles();
+        retrievePDFFiles();   //pdf retrive
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {        //for download
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 putPdf putPDF=uploadedPDF.get(i);
@@ -68,16 +68,16 @@ public class RetrievePdf extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds: snapshot.getChildren()) {
                     putPdf putPDF=ds.getValue(com.example.project.putPdf.class);
-                    uploadedPDF.add(putPDF);
-
+                    uploadedPDF.add(putPDF);                                             //firebase -> list
                 }
+
                 String[] uploadsName=new String[uploadedPDF.size()];
                 for (int i=0;i<uploadsName.length;i++)
                 {
-                    uploadsName[i]=uploadedPDF.get(i).getName();
+                    uploadsName[i]=uploadedPDF.get(i).getName();                            //pdf name -> string array
 
                 }
-                ArrayAdapter<String>arrayAdapter= new ArrayAdapter<String>(getApplicationContext(),
+                ArrayAdapter<String>arrayAdapter= new ArrayAdapter<String>(getApplicationContext(),             //arraysetadapter
                         android.R.layout.simple_list_item_1,uploadsName){
                     @NonNull
                     @Override
@@ -90,7 +90,7 @@ public class RetrievePdf extends AppCompatActivity {
                     }
                 };
 
-                listView.setAdapter(arrayAdapter);
+                listView.setAdapter(arrayAdapter);   //set list view arrayadapter
             }
 
             @Override

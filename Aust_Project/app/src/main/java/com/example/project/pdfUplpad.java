@@ -50,6 +50,7 @@ public class pdfUplpad extends AppCompatActivity {
         databaseReference= FirebaseDatabase.getInstance().getReference("uploadPDF");
         upload.setEnabled(false);
 
+        //select pdf
         editText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -57,6 +58,8 @@ public class pdfUplpad extends AppCompatActivity {
             }
         });
     }
+
+    //collect pdf file from storage
     private void selectPDF()
     {
         Intent intent=new Intent();
@@ -72,6 +75,8 @@ public class pdfUplpad extends AppCompatActivity {
         {
             upload.setEnabled(true);
             editText.setText(data.getDataString().substring(data.getDataString().lastIndexOf("/")+1));
+
+            //fetch pdf from storage
             upload.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -86,6 +91,8 @@ public class pdfUplpad extends AppCompatActivity {
         progressDialog.setTitle("File is Loading");
         progressDialog.show();
         StorageReference reference=storageReference.child("upload"+System.currentTimeMillis()+".pdf");
+
+        //
         reference.putFile(data)
                 .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
                     @Override
