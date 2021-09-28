@@ -32,12 +32,13 @@
            android:textStyle="bold">
 
        </TextView>
+
        <TextView
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
            android:text="Log in to Continue"
-           android:textSize="23sp"
-           android:textColor="#094AEA">
+           android:textColor="#094AEA"
+           android:textSize="23sp">
 
        </TextView>
 
