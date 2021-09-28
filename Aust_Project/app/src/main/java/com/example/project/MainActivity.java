@@ -46,7 +46,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
         if(firebaseUser!=null)
         {
-            startActivity(new Intent(getApplicationContext(),NoteFrame.class));
+//            startActivity(new Intent(getApplicationContext(),NoteFrame.class));
+            startActivity(new Intent(getApplicationContext(),Dashboard.class));
 
         }
 
@@ -83,7 +84,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         else if(v.getId()==R.id.new_user)       //signUp action method condition upto
         {
             Intent intent = new Intent(getApplicationContext(),SignUp.class);
+
             startActivity(intent);
+//            finish();
         }
         else if(v.getId() == R.id.logIN)            //get Log in action method condition
         {
@@ -113,7 +116,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
        {
 //           dioluge_pop("Succesfully Log In");
           // Toast.makeText(getApplicationContext(), "Successfully Log In", Toast.LENGTH_SHORT).show();
-           startActivity(new Intent(getApplicationContext(),NoteFrame.class));
+           startActivity(new Intent(getApplicationContext(),Dashboard.class));
        }
        else
            Toast.makeText(getApplicationContext(), "Please Varified Your Account", Toast.LENGTH_SHORT).show();
