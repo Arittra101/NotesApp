@@ -12,7 +12,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Project">
-        <activity android:name=".RetrievePdf"></activity>
+        <activity android:name=".RImage"></activity>
+        <activity android:name=".addpicture" />
+        <activity android:name=".Picture" />
+        <activity android:name=".RetrievePdf" />
         <activity android:name=".Dashboard" />
         <activity android:name=".pdfUplpad" />
         <activity android:name=".AddTask" />
