@@ -48,7 +48,8 @@ public class  NoteFrame extends AppCompatActivity implements View.OnClickListene
     RecyclerView mrecylerview;
     StaggeredGridLayoutManager staggeredGridLayoutManager;
     FirebaseUser firebaseUser;
-
+    Query query;
+    int sort_check=1;
     FirebaseFirestore firebaseFirestore;
 
     FirestoreRecyclerAdapter<firebasemodel,Noteviewholder> noteAdapter;
@@ -65,9 +66,16 @@ public class  NoteFrame extends AppCompatActivity implements View.OnClickListene
 
         firebaseUser =FirebaseAuth.getInstance().getCurrentUser();
         firebaseFirestore = FirebaseFirestore.getInstance();
+        //re_view(sort_check);
         String one = "1";
-        Query query = firebaseFirestore.collection("notes").document(firebaseUser.getUid()).collection("myNotes").orderBy("bookmark");
+        if(sort_check==1)
+        {
+            query = firebaseFirestore.collection("notes").document(firebaseUser.getUid()).collection("myNotes").orderBy("bookmark");
+            Toast.makeText(getApplicationContext(), "Sorted",Toast.LENGTH_SHORT).show();
+        }
 
+        else
+            query = firebaseFirestore.collection("notes").document(firebaseUser.getUid()).collection("myNotes");
         //all user notes collected in allusernotes->>>>>>>
         FirestoreRecyclerOptions<firebasemodel> allusernotes = new FirestoreRecyclerOptions.Builder<firebasemodel>().setQuery(query,firebasemodel.class).build();
         //user note collect
@@ -376,6 +384,10 @@ public class  NoteFrame extends AppCompatActivity implements View.OnClickListene
            // finish();
             startActivity(new Intent(getApplicationContext(),Bookmark.class));
         }
+        if(item.getItemId() == R.id.sort)
+        {
+
+        }
         return super.onOptionsItemSelected(item);
     }
 
@@ -424,9 +436,8 @@ public class  NoteFrame extends AppCompatActivity implements View.OnClickListene
         return colorCode.get(number);
    }
 
-   public void unsaved()
-   {
+  
 
-   }
+
 
 }

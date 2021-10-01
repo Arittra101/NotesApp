@@ -12,7 +12,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.Project">
-        <activity android:name=".RImage"></activity>
+        <activity android:name=".showImage"></activity>
+        <activity android:name=".RImage" />
         <activity android:name=".addpicture" />
         <activity android:name=".Picture" />
         <activity android:name=".RetrievePdf" />

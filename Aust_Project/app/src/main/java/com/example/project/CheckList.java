@@ -29,15 +29,20 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
-public class CheckList extends AppCompatActivity {
+public class CheckList extends AppCompatActivity implements  View.OnClickListener{
 
 
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     FirebaseFirestore firebaseFirestore =  FirebaseFirestore.getInstance();
     DocumentReference documentReference;
 
-    ArrayList<String>doclist = new ArrayList<>();
+    FloatingActionButton redobtn;
+  //  ArrayList<String>doclist1 = new ArrayList<>();
+
+    ArrayList<update> doclist = new ArrayList<>();
 
     RecyclerView recyclerView;
     FirestoreRecyclerAdapter<list_class,listHolder> recyclerAdapter;
@@ -48,15 +53,17 @@ public class CheckList extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_list);
-
+         redobtn = findViewById(R.id.redo);
         floatingActionButton =  findViewById(R.id.addtask);
+        redobtn.setOnClickListener(this);
         floatingActionButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 delete();
             }
         });
-        Query query = firebaseFirestore.collection("notes").document(user.getUid()).collection("Task");
+
+        Query query = firebaseFirestore.collection("notes").document(user.getUid()).collection("Task").whereEqualTo("rec","0");
         FirestoreRecyclerOptions<list_class> allTask = new  FirestoreRecyclerOptions.Builder<list_class>().setQuery(query,list_class.class).build();
 
 
@@ -72,8 +79,26 @@ public class CheckList extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
 
-                        doclist.add(docId);
-                        Toast.makeText(getApplicationContext(),"See u ok",Toast.LENGTH_SHORT).show();
+                        if(listHolder.checkBox.isChecked())
+                        {
+                            Toast.makeText(getApplicationContext(),"check",Toast.LENGTH_SHORT).show();
+                            doclist.add(new update(list_class.getTask(),docId));
+                        }
+                        else{
+                            Toast.makeText(getApplicationContext(),"UNcheck",Toast.LENGTH_SHORT).show();
+                            try{
+
+                               // doclist.remove(docId);
+                                loopDelete(docId);
+                            }
+                            catch (Exception e)
+                            {
+
+                            }
+
+                        }
+
+
                     }
                 });
             }
@@ -96,6 +121,38 @@ public class CheckList extends AppCompatActivity {
 
 
 
+
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        if(v.getId()==R.id.redo)
+        {
+            for(int i=0;i<doclist.size();i++)
+            {
+                Toast.makeText(getApplicationContext(),"redo ",Toast.LENGTH_SHORT).show();
+
+
+                documentReference = firebaseFirestore.collection("notes").document(user.getUid()).collection("Task").document(doclist.get(i).docIdstring);
+                Map<String,Object>  m = new HashMap<>();
+                m.put("Task",doclist.get(i).taskString);
+                m.put("rec","0");
+
+                documentReference.set(m).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+
+                        redobtn.setVisibility(View.GONE);
+                        Toast.makeText(getApplicationContext(),"OK redo",Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                redo();
+
+            }
+
+        }
 
     }
 
@@ -134,15 +191,52 @@ public class CheckList extends AppCompatActivity {
 
         for(int i=0;i<doclist.size();i++)
         {
-            documentReference = firebaseFirestore.collection("notes").document(user.getUid()).collection("Task").document(doclist.get(i));
-            documentReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+            Toast.makeText(getApplicationContext(),doclist.get(i).docIdstring+" ",Toast.LENGTH_SHORT).show();
+           // documentReference = firebaseFirestore.collection("notes").document(user.getUid()).collection("Task").document(doclist.get(i).docIdstring);
+           // documentReference = firebaseFirestore.collection("notes").document(user.getUid()).collection("Redo").document(doclist.get(i));
+//            documentReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+//                @Override
+//                public void onSuccess(Void aVoid) {
+//                    doclist.clear();
+//                    Toast.makeText(getApplicationContext(),"OK deleted",Toast.LENGTH_SHORT).show();
+//                }
+//            });
+
+            documentReference = firebaseFirestore.collection("notes").document(user.getUid()).collection("Task").document(doclist.get(i).docIdstring);
+            Map<String,Object>  m = new HashMap<>();
+            m.put("Task",doclist.get(i).taskString);
+            m.put("rec","-1");
+
+            documentReference.set(m).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override
                 public void onSuccess(Void aVoid) {
+
+                    redobtn.setVisibility(View.VISIBLE);
                     Toast.makeText(getApplicationContext(),"OK deleted",Toast.LENGTH_SHORT).show();
                 }
             });
-           //
+
+            redo();
+
         }
+    }
+
+    public void loopDelete(String id)
+    {
+        for (int i = 0; i < doclist.size(); i++) {
+            String c = doclist.get(i).docIdstring;
+            if (c.equals(id))
+            {
+                doclist.remove(i);
+                break;
+            }
+
+//         System.out.println(doclist.get(i).a);
+        }
+    }
+    public void redo()
+    {
+
     }
 
     @Override

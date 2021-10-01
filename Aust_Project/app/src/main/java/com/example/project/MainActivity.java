@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         if(firebaseUser!=null)
         {
 //            startActivity(new Intent(getApplicationContext(),NoteFrame.class));
+            finish();
             startActivity(new Intent(getApplicationContext(),Dashboard.class));
 
         }

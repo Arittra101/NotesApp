@@ -48,6 +48,7 @@ public class AddTask extends AppCompatActivity implements View.OnClickListener {
             Map<String,Object> m = new HashMap<>();
             String task = editTask.getText().toString();
             m.put("Task",task);
+            m.put("rec","0");
 
             documentReference.set(m).addOnSuccessListener(new OnSuccessListener<Void>() {
                 @Override

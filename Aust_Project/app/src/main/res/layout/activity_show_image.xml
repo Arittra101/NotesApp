@@ -4,34 +4,21 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:orientation="vertical"
-    android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/rimage_title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingLeft="10sp"
-        android:text="TextView"
-        android:textColor="@color/black"
-        android:textSize="20sp"
-        android:textStyle="bold" />
+    android:layout_height="wrap_content"
+    tools:context=".showImage"
+    >
 
-    <View
-        android:id="@+id/divider"
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="?android:attr/listDivider"
-        android:backgroundTint="#1B1919" />
+
+
+
 
     <ImageView
-
-        android:id="@+id/img"
+        android:id="@+id/img1"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="30dp"
-
-
         />
 
     <LinearLayout

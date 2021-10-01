@@ -33,9 +33,26 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentEnd="true"
+
         android:layout_margin="32dp"
         android:backgroundTint="@android:color/holo_green_dark"
         android:src="@drawable/ic_baseline_delete_24" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+
+        android:id="@+id/redo"
+        android:layout_width="wrap_content"
+        android:visibility="gone"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_margin="32dp"
+        android:src="@drawable/ic_baseline_redo_24"
+        >
+
+
+
+    </com.google.android.material.floatingactionbutton.FloatingActionButton>
 
 
 </RelativeLayout>

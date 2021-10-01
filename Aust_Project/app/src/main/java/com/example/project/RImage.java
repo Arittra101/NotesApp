@@ -2,9 +2,12 @@ package com.example.project;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.util.Pair;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -51,10 +54,22 @@ public class RImage extends AppCompatActivity implements  View.OnClickListener{
                 imageHolder.timeView.setText(upload.getHour());
                 Picasso.get().load(upload.getImageUrl()).into(imageHolder.rimageView);
 
+
+
                 imageHolder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        Toast.makeText(getApplicationContext(),upload.getImageUrl() ,Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(getApplicationContext(),showImage.class);
+                        intent.putExtra("imageUrl",upload.getImageUrl());
+                        startActivity(intent);
+
+//                        Pair[] pairs = new Pair[1];
+//                        pairs[0]= new Pair<View,String>(imageHolder.rimageView,"mimg");
+//                        ActivityOptionsCompat optionsCompat = ActivityOptionsCompat.makeSceneTransitionAnimation((Activity) imageHolder.itemView.getContext(),pairs);
+//
+//                        //startActivity(intent);
+//                       startActivity(intent,optionsCompat.toBundle());
+//                        Toast.makeText(getApplicationContext(),upload.getImageUrl() ,Toast.LENGTH_SHORT).show();
                     }
                 });
 
