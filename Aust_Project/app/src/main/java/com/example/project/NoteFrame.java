@@ -68,14 +68,12 @@ public class  NoteFrame extends AppCompatActivity implements View.OnClickListene
         firebaseFirestore = FirebaseFirestore.getInstance();
         //re_view(sort_check);
         String one = "1";
-        if(sort_check==1)
-        {
+
             query = firebaseFirestore.collection("notes").document(firebaseUser.getUid()).collection("myNotes").orderBy("bookmark");
             Toast.makeText(getApplicationContext(), "Sorted",Toast.LENGTH_SHORT).show();
-        }
 
-        else
-            query = firebaseFirestore.collection("notes").document(firebaseUser.getUid()).collection("myNotes");
+
+
         //all user notes collected in allusernotes->>>>>>>
         FirestoreRecyclerOptions<firebasemodel> allusernotes = new FirestoreRecyclerOptions.Builder<firebasemodel>().setQuery(query,firebasemodel.class).build();
         //user note collect
@@ -89,22 +87,42 @@ public class  NoteFrame extends AppCompatActivity implements View.OnClickListene
 
                 String docId = noteAdapter.getSnapshots().getSnapshot(i).getId();
                 int colorcode = getRandomColor();
-                noteviewholder.mnote.setBackgroundColor(noteviewholder.itemView.getResources().getColor(colorcode,null));
+
                 noteviewholder.notetitle.setText(firebasemodel.getTitle());    //model get
                 noteviewholder.notecontent.setText(firebasemodel.getContent());
 
                 //check is it zero or One->>>>>>>>>>>>
+
+//                colorCode.add(R.color.red);
+//                colorCode.add(R.color.green3);
+//                colorCode.add(R.color.yellow);
                 String check = "0";
-                if(firebasemodel.getBookmark().equals(check))
+                if(firebasemodel.getBookmark().equals(check))   //first p
                 {
                     noteviewholder.bookmarkimageview.setVisibility(View.INVISIBLE);
                     noteviewholder.bookmarkdoneview.setVisibility(View.VISIBLE);
-                   // Toast.makeText(getApplicationContext(),firebasemodel.getBookmark()+ "Already Saved",Toast.LENGTH_SHORT).show();
+                    noteviewholder.mnote.setBackgroundColor(noteviewholder.itemView.getResources().getColor(R.color.redasole,null));
+//                    Toast.makeText(getApplicationContext(),firebasemodel.getBookmark()+ "Already Saved",Toast.LENGTH_SHORT).show();
                 }
-                else
+               else if(firebasemodel.getBookmark().equals("1"))   //first p
+                {
+                    noteviewholder.bookmarkimageview.setVisibility(View.INVISIBLE);
+                    noteviewholder.bookmarkdoneview.setVisibility(View.VISIBLE);
+                    noteviewholder.mnote.setBackgroundColor(noteviewholder.itemView.getResources().getColor(R.color.redasole2,null));
+//                    Toast.makeText(getApplicationContext(),firebasemodel.getBookmark()+ "Already Saved",Toast.LENGTH_SHORT).show();
+                }
+                else if(firebasemodel.getBookmark().equals("2"))         //third p
+                {
+                    noteviewholder.bookmarkimageview.setVisibility(View.INVISIBLE);
+                    noteviewholder.bookmarkdoneview.setVisibility(View.VISIBLE);
+                    noteviewholder.mnote.setBackgroundColor(noteviewholder.itemView.getResources().getColor(colorcode,null));
+//                    Toast.makeText(getApplicationContext(),firebasemodel.getBookmark()+ "Already Saved",Toast.LENGTH_SHORT).show();
+                }
+                else  if(firebasemodel.getBookmark().equals("3"))       //no pri
                 {
                     noteviewholder.bookmarkimageview.setVisibility(View.VISIBLE);
                     noteviewholder.bookmarkdoneview.setVisibility(View.INVISIBLE);
+                    noteviewholder.mnote.setBackgroundColor(noteviewholder.itemView.getResources().getColor(colorcode,null));
                 }
                 //check is it zero or One
 
@@ -118,7 +136,7 @@ public class  NoteFrame extends AppCompatActivity implements View.OnClickListene
                     public void onClick(View v) {
                         Map<String,Object> m = new HashMap<>();
 
-                        String check = "1";
+                        String check = "3";
                         m.put("bookmark",check);
                         m.put("title",firebasemodel.getTitle());
                         m.put("content",firebasemodel.getContent());
@@ -160,12 +178,12 @@ public class  NoteFrame extends AppCompatActivity implements View.OnClickListene
                     public void onClick(View v) {
 
                        // Toast.makeText(getApplicationContext(),firebasemodel.getBookmark()+ "Ok saved",Toast.LENGTH_SHORT).show();
-                        String check="0";
-                        if(firebasemodel.getBookmark().equals(check))
-                        {
-                            Toast.makeText(getApplicationContext(),firebasemodel.getBookmark()+ "Already Saved",Toast.LENGTH_SHORT).show();
-                        }
-                        else{
+                        String check="3";
+//                        if(firebasemodel.getBookmark().equals(check))
+//                        {
+//                            Toast.makeText(getApplicationContext(),firebasemodel.getBookmark()+ "Already Saved",Toast.LENGTH_SHORT).show();
+//                        }
+                       // else{
                             FirebaseFirestore root = FirebaseFirestore.getInstance();
                             DocumentReference documentReference = root.collection("notes").document(firebaseUser.getUid()).collection("Bookmark").document(docId);
 
@@ -177,15 +195,15 @@ public class  NoteFrame extends AppCompatActivity implements View.OnClickListene
                                 @Override
                                 public void onSuccess(Void aVoid) {
                                     //here
-                                    noteviewholder.bookmarkimageview.setVisibility(View.INVISIBLE);
-                                    noteviewholder.bookmarkdoneview.setVisibility(View.VISIBLE);
+//                                    noteviewholder.bookmarkimageview.setVisibility(View.INVISIBLE);
+//                                    noteviewholder.bookmarkdoneview.setVisibility(View.VISIBLE);
                                     Toast.makeText(getApplicationContext(),"OK Done",Toast.LENGTH_SHORT).show();
                                 }
                             });
 
                             documentReference = firebaseFirestore.collection("notes").document(firebaseUser.getUid()).collection("myNotes").document(docId);
                             Map<String,Object> m1 = new HashMap<>();
-                            String  bk = "0";
+                            String  bk = "2";
                             m1.put("title",firebasemodel.getTitle());
                             m1.put("content",firebasemodel.getContent());
                             m1.put("bookmark",bk);
@@ -195,7 +213,7 @@ public class  NoteFrame extends AppCompatActivity implements View.OnClickListene
 
                                 }
                             });
-                        }
+                        //}
 
 
                     }
@@ -270,6 +288,50 @@ public class  NoteFrame extends AppCompatActivity implements View.OnClickListene
                                });
 
                                 Toast.makeText(v.getContext(),"Delete This Note Successfully",Toast.LENGTH_SHORT).show();
+                                return false;
+                            }
+                        });
+
+                        popupMenu.getMenu().add("First priority").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem item) {
+
+                               DocumentReference documentReference = firebaseFirestore.collection("notes").document(firebaseUser.getUid()).collection("myNotes").document(docId);
+                               Map<String,Object> m = new HashMap<>();
+                               String pr = "0";
+                               m.put("content",firebasemodel.getTitle());
+                               m.put("title",firebasemodel.getTitle());
+                               m.put("bookmark",pr);
+                               documentReference.set(m).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                   @Override
+                                   public void onSuccess(Void aVoid) {
+//                                       noteviewholder.bookmarkimageview.setVisibility(View.INVISIBLE);
+//                                       noteviewholder.bookmarkdoneview.setVisibility(View.VISIBLE);
+                                       add_bookmark(noteviewholder,firebasemodel,docId);
+                                   }
+                               });
+
+                                return false;
+                            }
+                        });
+                        popupMenu.getMenu().add("Second priority").setOnMenuItemClickListener(new MenuItem.OnMenuItemClickListener() {
+                            @Override
+                            public boolean onMenuItemClick(MenuItem item) {
+
+                                DocumentReference documentReference = firebaseFirestore.collection("notes").document(firebaseUser.getUid()).collection("myNotes").document(docId);
+                                Map<String,Object> m = new HashMap<>();
+                                String pr = "1";
+                                m.put("content",firebasemodel.getTitle());
+                                m.put("title",firebasemodel.getTitle());
+                                m.put("bookmark",pr);
+                                documentReference.set(m).addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+//                                       noteviewholder.bookmarkimageview.setVisibility(View.INVISIBLE);
+//                                       noteviewholder.bookmarkdoneview.setVisibility(View.VISIBLE);
+                                        add_bookmark(noteviewholder,firebasemodel,docId);
+                                    }
+                                });
                                 return false;
                             }
                         });
@@ -422,22 +484,42 @@ public class  NoteFrame extends AppCompatActivity implements View.OnClickListene
         colorCode.add(R.color.sky_blue);
         colorCode.add(R.color.sky_blue2);
         colorCode.add(R.color.green);
-        colorCode.add(R.color.yellow);
+
         colorCode.add(R.color.white1);
         colorCode.add(R.color.white2);
         colorCode.add(R.color.white3);
         colorCode.add(R.color.green2);
-        colorCode.add(R.color.green3);
+
         colorCode.add(R.color.Pink);
-        colorCode.add(R.color.red);
+
 
         Random random = new Random();   //for random input
         int number = random.nextInt(colorCode.size());    //nextInt use for unput ->> Scanner sc = new Scanner(System.in)->> sc.nextInt()-<  one int get Input
         return colorCode.get(number);
    }
 
-  
 
+
+  public void add_bookmark(Noteviewholder noteviewholder,firebasemodel firebasemodel,String docId)
+  {
+      FirebaseFirestore root = FirebaseFirestore.getInstance();
+      DocumentReference documentReference = root.collection("notes").document(firebaseUser.getUid()).collection("Bookmark").document(docId);
+
+      Map<String,Object> m = new HashMap<>();
+      m.put("title",firebasemodel.getTitle());
+      m.put("content",firebasemodel.getContent());
+
+      documentReference.set(m).addOnSuccessListener(new OnSuccessListener<Void>() {
+          @Override
+          public void onSuccess(Void aVoid) {
+              //here
+//              noteviewholder.bookmarkimageview.setVisibility(View.INVISIBLE);
+//              noteviewholder.bookmarkdoneview.setVisibility(View.VISIBLE);
+              Toast.makeText(getApplicationContext(),"OK Done",Toast.LENGTH_SHORT).show();
+          }
+      });
+
+  }
 
 
 }
