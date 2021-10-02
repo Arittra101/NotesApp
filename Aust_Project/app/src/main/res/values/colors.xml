@@ -22,7 +22,9 @@
     <color name="red">#E79CF4</color>
     <color name="redasole">#F83645</color>
     <color name="redasole2">#E843A6</color>
-
+    <color name="lightgray">#C6C0C0</color>
+    <color name="lightblue">#9DC0DC</color>
+    <color name="light_green">#D6E16C</color>
 
 
 </resources>

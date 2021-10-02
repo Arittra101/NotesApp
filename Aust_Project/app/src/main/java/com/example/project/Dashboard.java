@@ -51,6 +51,10 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
         {
             startActivity(new Intent(getApplicationContext(),RImage.class));
         }
+        if(v.getId()==R.id.reminderView)
+        {
+            startActivity(new Intent(getApplicationContext(),Event.class));
+        }
 
 
 
