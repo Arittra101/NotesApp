@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="wrap_content">
+
+    <EditText
+        android:id="@+id/p_title_edit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:ems="10"
+
+        android:layout_margin="10dp"
+        android:hint="Type Title"
+        android:textSize="17dp"
+        android:gravity="top"
+        android:inputType="textPersonName" />
+
+    <EditText
+        android:id="@+id/p_des_edit"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:maxLines="50"
+
+        android:layout_marginTop="20dp"
+        android:gravity="top"
+        android:hint="Enter any Description"
+        android:inputType="textMultiLine"
+        android:textSize="17dp"
+        android:layout_margin="10dp"/>
+    <Button
+        android:id="@+id/t_update"
+        android:layout_margin="15dp"
+        android:layout_gravity="center"
+        android:paddingRight="70dp"
+        android:textColor="@color/white"
+        android:paddingLeft="70dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/pop_up"
+        android:text="Update" />
+</LinearLayout>

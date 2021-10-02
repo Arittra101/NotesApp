@@ -73,6 +73,9 @@ public class RImage extends AppCompatActivity implements  View.OnClickListener{
                         intent.putExtra("discription",upload.getDescription());
                         intent.putExtra("imagetitle",upload.getImage_title());
                         intent.putExtra("imageUrl",upload.getImageUrl());
+                        intent.putExtra("docId",docId);
+                        finish();
+                        
                         startActivity(intent);
 //                        Pair[] pairs = new Pair[1];
 //                        pairs[0]= new Pair<View,String>(imageHolder.rimageView,"mimg");

@@ -16,7 +16,7 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"
-        app:cardCornerRadius="5dp"
+        app:cardCornerRadius="8dp"
         android:layout_weight="1.2">
 
         <ImageView
@@ -33,12 +33,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+
         android:weightSum="2">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:padding="10dp"
             android:orientation="vertical">
 
             <TextView
@@ -69,10 +71,11 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
+            android:padding="10dp"
             android:textColor="@color/black"
             android:textSize="24sp"
             android:layout_weight="1"
-            android:text="Description" />
+            android:text="Description: " />
 
         <TextView
             android:id="@+id/des_detail"
@@ -80,10 +83,16 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textSize="18dp"
-            android:layout_marginTop="5dp"
+            android:padding="10dp"
+
             android:layout_marginLeft="10dp"
             android:text="TextView" />
 
+
+
     </LinearLayout>
+
+
+
 
 </LinearLayout>

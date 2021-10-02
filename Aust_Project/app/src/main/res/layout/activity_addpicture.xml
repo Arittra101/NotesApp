@@ -32,40 +32,18 @@
         android:id="@+id/desciption"
         android:layout_width="match_parent"
         android:layout_height="100dp"
+        android:maxLines="50"
+
         android:layout_below="@id/pictitle"
         android:layout_marginTop="20dp"
-        android:gravity="center"
+        android:gravity="top"
         android:hint="Enter any Description"
-        android:inputType="text"
-        android:textSize="22dp"
+        android:inputType="textMultiLine"
+        android:textSize="17dp"
         android:layout_margin="10dp"/>
 
 
-    <TextView
-        android:id="@+id/date"
 
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_below="@id/desciption"
-        android:layout_marginTop="20dp"
-        android:inputType="text"
-        android:textSize="22dp"/>
-
-
-
-
-    <TextView
-        android:id="@+id/hour"
-
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_below="@id/date"
-        android:inputType="text"
-        android:textSize="22dp"/>
 
 
     <ProgressBar
@@ -73,7 +51,7 @@
         android:visibility="invisible"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_below="@id/hour"
+        android:layout_below="@id/desciption"
         android:layout_marginTop="18dp"
         android:layout_marginBottom="10dp"
         android:backgroundTint="@color/cardview_shadow_start_color"

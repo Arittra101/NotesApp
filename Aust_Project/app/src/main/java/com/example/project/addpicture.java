@@ -70,11 +70,7 @@ public class addpicture extends AppCompatActivity implements View.OnClickListene
         datatext = formatter.format(date);
         hourtext = formatter1.format(hour) ;
 
-        dateView = findViewById(R.id.date);
-        dateView.setText(datatext);
 
-        hourView = findViewById(R.id.hour);
-        hourView.setText(hourtext);
 
         imageselectbtn = findViewById(R.id.selectbtn);
         imageselectbtn.setOnClickListener(this);
