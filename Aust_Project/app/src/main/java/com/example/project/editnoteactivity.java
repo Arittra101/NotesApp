@@ -19,6 +19,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -32,22 +34,27 @@ public class editnoteactivity extends AppCompatActivity {
     String title;
     String content;
     String noteId;
-    String book;
+    String book,date,time;
+    String date_edit;
+    String time_edit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editnoteactivity);
 
+        Date currentDate = new Date();
+        SimpleDateFormat timeformat = new SimpleDateFormat("hh:mm:ss a");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("E, MMM dd yyyy");
+        date_edit = dateFormat.format(currentDate);
+        time_edit =  timeformat.format(currentDate);
 
-
-        Intent data = getIntent();
-
-
+         Intent data = getIntent();
          title = data.getStringExtra("title");
          content = data.getStringExtra("content");
          noteId = data.getStringExtra("noteId");
          book = data.getStringExtra("Bookmark");
+
 
         edit_title =  findViewById(R.id.titleedit);
         edit_content = findViewById(R.id.contentofnotedit);
@@ -74,6 +81,10 @@ public class editnoteactivity extends AppCompatActivity {
                 note.put("title",title_get);
                 note.put("content",  title_content);
                 note.put("bookmark",book);
+                note.put("date",date_edit);
+                note.put("time",time_edit);
+
+
 
 
                 documentReference.set(note).addOnSuccessListener(new OnSuccessListener<Void>() {

@@ -4,31 +4,73 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#faf7f7"
     tools:context=".notedetails">
 
-    <androidx.appcompat.widget.Toolbar
-        android:layout_height="?actionBarSize"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:id="@+id/toolbarofnotedetail"
-        android:background="@color/white">
+        android:layout_height="wrap_content"
+        android:id="@+id/linn"
+        android:orientation="vertical">
 
-        <TextView
+
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbarofnotedetail"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:paddingTop="10dp"
-            android:textSize="25sp"
-            android:textStyle="bold"
-            android:textColor="@color/black"
-        android:text="Title "
-            android:id="@+id/titledetail">
-        </TextView>
+            android:layout_height="?actionBarSize"
+            android:background="@color/white">
 
-    </androidx.appcompat.widget.Toolbar>
+            <TextView
+                android:id="@+id/titledetail"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingTop="10dp"
+                android:text="Title "
+
+                android:textColor="@color/black"
+                android:textSize="25sp"
+                android:textStyle="bold"></TextView>
+
+        </androidx.appcompat.widget.Toolbar>
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            android:background="#faf7f7"
+            android:textSize="18dp"
+            android:textColor="@color/teal_700"
+            android:text="Last Edit" />
+        <TextView
+            android:id="@+id/date_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textSize="16dp"
+
+            android:background="#faf7f7"
+            android:text="TextView1" />
+        <TextView
+            android:id="@+id/time_View"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+
+            android:paddingLeft="10dp"
+            android:paddingRight="10dp"
+            android:textSize="16dp"
+
+            android:background="#faf7f7"
+            android:text="TextView1" />
+    </LinearLayout>
+
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbarofnotedetail"
+        android:layout_below="@+id/linn"
         android:layout_marginTop="4dp"
         android:background="#faf7f7"
         android:gravity="top|left"
@@ -36,7 +78,10 @@
         android:padding="15dp"
         android:textColor="@color/black"
         android:id="@+id/contentofnotedetail"
-        android:textSize="17sp"></TextView>
+        android:textSize="17sp">
+
+
+    </TextView>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"

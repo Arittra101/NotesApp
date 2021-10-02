@@ -1,9 +1,11 @@
 package com.example.project;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,6 +22,11 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;  // Import the LocalDateTime class
+import java.time.format.DateTimeFormatter;  // Import the DateTimeFormatter class
+
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -54,6 +61,7 @@ public class createNote extends AppCompatActivity implements View.OnClickListene
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     public void onClick(View v) {
         if(v.getId()==R.id.note_save){
@@ -68,11 +76,26 @@ public class createNote extends AppCompatActivity implements View.OnClickListene
             {
                 DocumentReference documentReference = firebaseFirestore.collection("notes").document(firebaseUser.getUid()).collection("myNotes").document();
 //                DocumentReference documentReference = firebaseFirestore.collection("Notes").document();
+//                LocalDateTime myDateObj = LocalDateTime.now();
+//
+//                DateTimeFormatter myFormatObj = DateTimeFormatter.ofPattern("E, MMM dd yyyy HH:mm:ss");
+//
+//                String formattedDate = myDateObj.format(myFormatObj);
+
+                Date currentDate = new Date();
+                SimpleDateFormat timeformat = new SimpleDateFormat("hh:mm:ss a");
+                SimpleDateFormat dateFormat = new SimpleDateFormat("E, MMM dd yyyy");
+                String date = dateFormat.format(currentDate);
+                String time =  timeformat.format(currentDate);
+
                 String one="3";
                 Map<String,Object> m = new HashMap<>();
                 m.put("title",s_title);
                 m.put("content",s_written_note);
                 m.put("bookmark",one);
+                m.put("date",date);
+                m.put("time",time);
+
                 documentReference.set(m).addOnSuccessListener(new OnSuccessListener<Void>()
                 {
                     @Override

@@ -140,6 +140,8 @@ public class  NoteFrame extends AppCompatActivity implements View.OnClickListene
                         m.put("bookmark",check);
                         m.put("title",firebasemodel.getTitle());
                         m.put("content",firebasemodel.getContent());
+                        m.put("date",firebasemodel.getDate());
+                        m.put("time",firebasemodel.getTime());
 
                         //update bookmark data zero -> one so that view will be chagnge
                         DocumentReference documentReference = firebaseFirestore.collection("notes").document(firebaseUser.getUid()).collection("myNotes").document(docId);
@@ -207,6 +209,8 @@ public class  NoteFrame extends AppCompatActivity implements View.OnClickListene
                             m1.put("title",firebasemodel.getTitle());
                             m1.put("content",firebasemodel.getContent());
                             m1.put("bookmark",bk);
+                            m1.put("date",firebasemodel.getDate());
+                            m1.put("time",firebasemodel.getTime());
                             documentReference.set(m1).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void aVoid) {
@@ -236,6 +240,9 @@ public class  NoteFrame extends AppCompatActivity implements View.OnClickListene
                         intent.putExtra("content",firebasemodel.getContent());
                         intent.putExtra("noteId",docId);
                         intent.putExtra("Bookmark",firebasemodel.getBookmark());
+                        intent.putExtra("date",firebasemodel.getDate());
+                        intent.putExtra("time",firebasemodel.getTime());
+
                         v.getContext().startActivity(intent);
 //                        Toast.makeText(getApplicationContext(),"This is clicked",Toast.LENGTH_SHORT).show();
                     }
@@ -302,6 +309,8 @@ public class  NoteFrame extends AppCompatActivity implements View.OnClickListene
                                m.put("content",firebasemodel.getTitle());
                                m.put("title",firebasemodel.getTitle());
                                m.put("bookmark",pr);
+                                m.put("date",firebasemodel.getDate());
+                                m.put("time",firebasemodel.getTime());
                                documentReference.set(m).addOnSuccessListener(new OnSuccessListener<Void>() {
                                    @Override
                                    public void onSuccess(Void aVoid) {
@@ -324,6 +333,8 @@ public class  NoteFrame extends AppCompatActivity implements View.OnClickListene
                                 m.put("content",firebasemodel.getTitle());
                                 m.put("title",firebasemodel.getTitle());
                                 m.put("bookmark",pr);
+                                m.put("date",firebasemodel.getDate());
+                                m.put("time",firebasemodel.getTime());
                                 documentReference.set(m).addOnSuccessListener(new OnSuccessListener<Void>() {
                                     @Override
                                     public void onSuccess(Void aVoid) {
