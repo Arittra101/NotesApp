@@ -41,15 +41,15 @@ import java.util.Map;
 public class addpicture extends AppCompatActivity implements View.OnClickListener{
 
     private  static  final int PICK_IMAGE_REQUEST = 1;
-    EditText picture_title;
+    EditText picture_title,picture_Des;
     TextView dateView,hourView;
     Button imageselectbtn,uploadimagebtn;
     Uri imageUri;
     ImageView imageView;
     ProgressBar progressBar;
 
-
-    StorageReference storageReference= FirebaseStorage.getInstance().getReference();
+    FirebaseStorage firebaseStorage = FirebaseStorage.getInstance();
+    StorageReference storageReference= firebaseStorage.getReference();  //documentreference =  firebasestore.collection().....
     FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
     DocumentReference documentReference;
@@ -68,7 +68,7 @@ public class addpicture extends AppCompatActivity implements View.OnClickListene
         Date date = new Date();
         Date hour = new Date();
         datatext = formatter.format(date);
-         hourtext = formatter1.format(hour) ;
+        hourtext = formatter1.format(hour) ;
 
         dateView = findViewById(R.id.date);
         dateView.setText(datatext);
@@ -85,6 +85,7 @@ public class addpicture extends AppCompatActivity implements View.OnClickListene
         progressBar = findViewById(R.id.spinner);
 
         picture_title = findViewById(R.id.pictitle);
+        picture_Des = findViewById(R.id.desciption);
 
 
 
@@ -157,6 +158,7 @@ public class addpicture extends AppCompatActivity implements View.OnClickListene
                             m.put("date",datatext);
                             m.put("hour",hourtext);
                             m.put("imageUrl",uri_string);
+                            m.put("description",picture_Des.getText().toString());
 
                             documentReference.set(m).addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
