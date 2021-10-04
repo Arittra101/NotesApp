@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -43,6 +44,8 @@ public class editnoteactivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editnoteactivity);
 
+        getWindow().setStatusBarColor(ContextCompat.getColor(editnoteactivity.this,R.color.purple_2001));
+//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         Date currentDate = new Date();
         SimpleDateFormat timeformat = new SimpleDateFormat("hh:mm:ss a");
         SimpleDateFormat dateFormat = new SimpleDateFormat("E, MMM dd yyyy");
@@ -65,7 +68,6 @@ public class editnoteactivity extends AppCompatActivity {
 
         Toolbar toolbar = findViewById(R.id.toolbarofnotedit);
         setSupportActionBar(toolbar);
-
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         save_note.setOnClickListener(new View.OnClickListener(){
@@ -84,7 +86,9 @@ public class editnoteactivity extends AppCompatActivity {
                 note.put("date",date_edit);
                 note.put("time",time_edit);
 
-
+                Map<String,Object> note2 =new HashMap<>();
+                note2.put("title",title_get);
+                note2.put("content",title_content);
 
 
                 documentReference.set(note).addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -92,7 +96,7 @@ public class editnoteactivity extends AppCompatActivity {
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(getApplicationContext(),"Successfully Updated",Toast.LENGTH_SHORT).show();
                         finish();
-                        startActivity(new Intent(getApplicationContext(),NoteFrame.class));
+                       // startActivity(new Intent(getApplicationContext(),NoteFrame.class));
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
@@ -102,6 +106,14 @@ public class editnoteactivity extends AppCompatActivity {
                 });
 
 //                Toast.makeText(getApplicationContext(),"Failed to Update",Toast.LENGTH_SHORT).show();
+                DocumentReference documentReference1 = firebaseFirestore.collection("notes").document(user.getUid()).collection("Bookmark").document(noteId);
+
+                documentReference1.set(note2).addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        Toast.makeText(getApplicationContext(),"Bookmark Updated",Toast.LENGTH_SHORT).show();
+                    }
+                });
 
             }
         });

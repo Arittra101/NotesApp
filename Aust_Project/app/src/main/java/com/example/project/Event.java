@@ -1,6 +1,7 @@
 package com.example.project;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ public class Event extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_event);
 
+        getWindow().setStatusBarColor(ContextCompat.getColor(Event.this,R.color.purple_2001));
         title = findViewById(R.id.etTitle);
         location = findViewById(R.id.etlocation);
         description = findViewById(R.id.etDescription);
@@ -42,7 +44,7 @@ public class Event extends AppCompatActivity {
                     intent.putExtra(CalendarContract.Events.EVENT_LOCATION, location.getText().toString());
 
                     intent.putExtra(CalendarContract.Events.ALL_DAY, true);
-                    intent.putExtra(Intent.EXTRA_EMAIL, "test@yahoo.com,test3@yahoo.com");
+                    intent.putExtra(Intent.EXTRA_EMAIL, "avishek51775@gmail.com,190104076@aust.edu");
 
                     if (intent.resolveActivity(getPackageManager()) != null) {
                         startActivity(intent);

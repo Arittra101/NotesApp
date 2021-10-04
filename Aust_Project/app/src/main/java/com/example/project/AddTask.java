@@ -1,6 +1,7 @@
 package com.example.project;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -31,7 +32,7 @@ public class AddTask extends AppCompatActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
-
+        getWindow().setStatusBarColor(ContextCompat.getColor(AddTask.this,R.color.purple_2001));
         editTask = findViewById(R.id.task_note);
         savetaskfabbutton = findViewById(R.id.task_save);
         savetaskfabbutton.setOnClickListener(this);
@@ -55,7 +56,7 @@ public class AddTask extends AppCompatActivity implements View.OnClickListener {
                 public void onSuccess(Void aVoid) {
                     Toast.makeText(getApplicationContext(),"Ok added task",Toast.LENGTH_SHORT).show();
                     finish();
-                    startActivity(new Intent(getApplicationContext(),CheckList.class));
+                   // startActivity(new Intent(getApplicationContext(),CheckList.class));
                 }
             });
 

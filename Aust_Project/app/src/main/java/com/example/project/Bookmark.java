@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
@@ -51,7 +52,7 @@ public class Bookmark extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bookmark);
-
+        getWindow().setStatusBarColor(ContextCompat.getColor(Bookmark.this,R.color.purple_2001));
         //Toast.makeText(getApplicationContext(),"OK Done",Toast.LENGTH_SHORT).show();
 
 

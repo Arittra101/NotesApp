@@ -3,6 +3,7 @@ package com.example.project;
 import androidx.annotation.IntegerRes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -29,7 +30,7 @@ public class Forget extends AppCompatActivity {
         setContentView(R.layout.activity_forget);
 
         getSupportActionBar().hide();  //action bar hidden
-
+        getWindow().setStatusBarColor(ContextCompat.getColor(Forget.this,R.color.white101));
         recover = findViewById(R.id.confirm_email);
         recover_btn = findViewById(R.id.recover);
         recover_btn.setOnClickListener(new View.OnClickListener() {
@@ -52,7 +53,7 @@ public class Forget extends AppCompatActivity {
                         public void onComplete(@NonNull Task<Void> task) {
                             Toast.makeText(getApplicationContext(),"Mail sent! You can Recover Now",Toast.LENGTH_SHORT).show();
                             finish();
-                            startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                            //startActivity(new Intent(getApplicationContext(),MainActivity.class));
                         }
                     });
                 }

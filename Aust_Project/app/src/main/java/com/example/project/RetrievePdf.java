@@ -4,6 +4,8 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
+
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -35,6 +37,8 @@ public class RetrievePdf extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_retrieve_pdf);
+
+        getWindow().setStatusBarColor(ContextCompat.getColor(RetrievePdf.this,R.color.purple_2001));
         listView = findViewById(R.id.listView);
 
         uploadedPDF = new ArrayList<>();
@@ -68,7 +72,7 @@ public class RetrievePdf extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot ds: snapshot.getChildren()) {
                     putPdf putPDF=ds.getValue(com.example.project.putPdf.class);
-                    uploadedPDF.add(putPDF);                                             //firebase -> list
+                    uploadedPDF.add(putPDF);                                             //firebase realtime-> list //uploarpdf->>arraylist
                 }
 
                 String[] uploadsName=new String[uploadedPDF.size()];

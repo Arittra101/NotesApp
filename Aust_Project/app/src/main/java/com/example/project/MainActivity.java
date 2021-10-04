@@ -3,6 +3,7 @@ package com.example.project;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -32,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getSupportActionBar().hide();          //Action bar hidden
-
+        getWindow().setStatusBarColor(ContextCompat.getColor(MainActivity.this,R.color.white101));
         email =  findViewById(R.id.loginEmail);  //getting email Edit Text  access
         pass =  findViewById(R.id.loginPass); // getting pass editText access
         logIn = findViewById(R.id.logIN);    //logIN button access
@@ -117,6 +118,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
        {
 //           dioluge_pop("Succesfully Log In");
           // Toast.makeText(getApplicationContext(), "Successfully Log In", Toast.LENGTH_SHORT).show();
+           finish();
            startActivity(new Intent(getApplicationContext(),Dashboard.class));
        }
        else

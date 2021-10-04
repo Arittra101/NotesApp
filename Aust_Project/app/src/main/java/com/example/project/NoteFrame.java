@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
@@ -35,6 +36,7 @@ import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -58,7 +60,7 @@ public class  NoteFrame extends AppCompatActivity implements View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_note_frame);
-
+        getWindow().setStatusBarColor(ContextCompat.getColor(NoteFrame.this,R.color.purple_2001));
 //        dioluge_pop("SuccesFully Log In");
 
         createNotesfab = findViewById(R.id.createnote);
@@ -268,9 +270,10 @@ public class  NoteFrame extends AppCompatActivity implements View.OnClickListene
 
                                 Intent intent = new Intent(v.getContext(),editnoteactivity.class);
                                 intent.putExtra("title",firebasemodel.getTitle());
-                                intent.putExtra("content",firebasemodel.getTitle());
+                                intent.putExtra("content",firebasemodel.getContent());
                                 intent.putExtra("noteId",docId);
                                 intent.putExtra("Bookmark",firebasemodel.getBookmark());
+
                                 v.getContext().startActivity(intent);
                                 return false;
                             }
@@ -281,7 +284,7 @@ public class  NoteFrame extends AppCompatActivity implements View.OnClickListene
                             public boolean onMenuItemClick(MenuItem item) {
 
                                 DocumentReference documentReference = firebaseFirestore.collection("notes").document(firebaseUser.getUid()).collection("myNotes").document(docId);
-                               documentReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                documentReference.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
                                    @Override
                                    public void onSuccess(Void aVoid) {
 
@@ -294,6 +297,13 @@ public class  NoteFrame extends AppCompatActivity implements View.OnClickListene
                                    }
                                });
 
+                                DocumentReference documentReference1 = firebaseFirestore.collection("notes").document(firebaseUser.getUid()).collection("Bookmark").document(docId);
+                                documentReference1.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                                    @Override
+                                    public void onSuccess(Void aVoid) {
+                                        Toast.makeText(v.getContext(),"Also Delete from bookmark",Toast.LENGTH_SHORT).show();
+                                    }
+                                });
                                 Toast.makeText(v.getContext(),"Delete This Note Successfully",Toast.LENGTH_SHORT).show();
                                 return false;
                             }
@@ -306,8 +316,8 @@ public class  NoteFrame extends AppCompatActivity implements View.OnClickListene
                                DocumentReference documentReference = firebaseFirestore.collection("notes").document(firebaseUser.getUid()).collection("myNotes").document(docId);
                                Map<String,Object> m = new HashMap<>();
                                String pr = "0";
-                               m.put("content",firebasemodel.getTitle());
-                               m.put("title",firebasemodel.getTitle());
+                                m.put("content",firebasemodel.getContent());
+                                m.put("title",firebasemodel.getTitle());
                                m.put("bookmark",pr);
                                 m.put("date",firebasemodel.getDate());
                                 m.put("time",firebasemodel.getTime());
@@ -330,7 +340,7 @@ public class  NoteFrame extends AppCompatActivity implements View.OnClickListene
                                 DocumentReference documentReference = firebaseFirestore.collection("notes").document(firebaseUser.getUid()).collection("myNotes").document(docId);
                                 Map<String,Object> m = new HashMap<>();
                                 String pr = "1";
-                                m.put("content",firebasemodel.getTitle());
+                                m.put("content",firebasemodel.getContent());
                                 m.put("title",firebasemodel.getTitle());
                                 m.put("bookmark",pr);
                                 m.put("date",firebasemodel.getDate());
@@ -406,6 +416,7 @@ public class  NoteFrame extends AppCompatActivity implements View.OnClickListene
 
         if(v.getId()==R.id.createnote)
         {
+            //finish();
             startActivity(new Intent(NoteFrame.this,createNote.class));
             Toast.makeText(getApplicationContext(),"Nice",Toast.LENGTH_SHORT).show();
         }
@@ -448,19 +459,13 @@ public class  NoteFrame extends AppCompatActivity implements View.OnClickListene
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
-        if(item.getItemId()==R.id.LO)
-        {
-          logOut();
-        }
+
         if(item.getItemId()==R.id.bookmark)
         {
            // finish();
             startActivity(new Intent(getApplicationContext(),Bookmark.class));
         }
-        if(item.getItemId() == R.id.sort)
-        {
 
-        }
         return super.onOptionsItemSelected(item);
     }
 

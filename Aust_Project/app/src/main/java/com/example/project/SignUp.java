@@ -2,6 +2,7 @@ package com.example.project;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,7 +30,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-
+        getWindow().setStatusBarColor(ContextCompat.getColor(SignUp.this,R.color.white101));
         getSupportActionBar().hide();  //  //Action bar hidden
 
 
@@ -109,7 +110,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                     Toast.makeText(getApplicationContext(),"Varification Email is Sent",Toast.LENGTH_SHORT).show();
                     firebaseAuth.signOut(); //must
                     finish();
-                    startActivity(new Intent(getApplicationContext(),MainActivity.class));
+                    //startActivity(new Intent(getApplicationContext(),MainActivity.class));
                 }
             });
         }

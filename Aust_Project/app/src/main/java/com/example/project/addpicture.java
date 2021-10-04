@@ -3,6 +3,7 @@ package com.example.project;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.ContentResolver;
 import android.content.Intent;
@@ -62,7 +63,7 @@ public class addpicture extends AppCompatActivity implements View.OnClickListene
         setContentView(R.layout.activity_addpicture);
 
         getSupportActionBar().hide();
-
+        getWindow().setStatusBarColor(ContextCompat.getColor(addpicture.this,R.color.purple_2001));
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat formatter1 = new SimpleDateFormat("HH:mm:ss");
         Date date = new Date();
@@ -161,7 +162,7 @@ public class addpicture extends AppCompatActivity implements View.OnClickListene
                                 public void onSuccess(Void aVoid) {
                                     Toast.makeText(getApplicationContext(),"Also added Database",Toast.LENGTH_SHORT).show();
                                     finish();
-                                    startActivity(new Intent(getApplicationContext(),RImage.class));
+                                   // startActivity(new Intent(getApplicationContext(),RImage.class));
 
                                 }
                             });

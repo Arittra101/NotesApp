@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.util.Pair;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
@@ -47,6 +48,7 @@ public class RImage extends AppCompatActivity implements  View.OnClickListener{
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_r_image);
+        getWindow().setStatusBarColor(ContextCompat.getColor(RImage.this,R.color.purple_2001));
         addImage = findViewById(R.id.addimage);
         addImage.setOnClickListener(this);
         Query query = firebaseFirestore.collection("notes").document(user.getUid()).collection("Image");
@@ -74,7 +76,7 @@ public class RImage extends AppCompatActivity implements  View.OnClickListener{
                         intent.putExtra("imagetitle",upload.getImage_title());
                         intent.putExtra("imageUrl",upload.getImageUrl());
                         intent.putExtra("docId",docId);
-                        finish();
+                       // finish();
                         
                         startActivity(intent);
 //                        Pair[] pairs = new Pair[1];
@@ -154,7 +156,7 @@ public class RImage extends AppCompatActivity implements  View.OnClickListener{
 
         if(v.getId()==R.id.addimage)
         {
-            finish();
+           // finish();
             startActivity(new Intent(getApplicationContext(),addpicture.class));
         }
     }

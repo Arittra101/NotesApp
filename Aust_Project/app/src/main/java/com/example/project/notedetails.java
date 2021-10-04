@@ -2,6 +2,7 @@ package com.example.project;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,7 +23,7 @@ public class notedetails extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notedetails);
-
+        getWindow().setStatusBarColor(ContextCompat.getColor(notedetails.this,R.color.purple_2001));
         detail_title = findViewById(R.id.titledetail);
         detail_content = findViewById(R.id.contentofnotedetail);
         edit = findViewById(R.id.gotoeditnote);

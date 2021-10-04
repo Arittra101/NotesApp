@@ -3,6 +3,7 @@ package com.example.project;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -39,7 +40,7 @@ public class showImage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_image);
-
+        getWindow().setStatusBarColor(ContextCompat.getColor(showImage.this,R.color.purple_2001));
         ImageView imageView = findViewById(R.id.img1);
         Intent data = getIntent();
         String date = data.getStringExtra("date");
@@ -48,7 +49,7 @@ public class showImage extends AppCompatActivity {
          des = data.getStringExtra("discription");
          title = data.getStringExtra("imagetitle");
          docId = data.getStringExtra("docId");
-        url = data.getStringExtra("imageUrl");
+         url = data.getStringExtra("imageUrl");
 
 
         Picasso.get().load(url).into(imageView);
@@ -92,8 +93,8 @@ public class showImage extends AppCompatActivity {
         TextView edit_des = dialogView.findViewById(R.id.p_des_edit);
         Button update = dialogView.findViewById(R.id.t_update);
 
-        edit_title.setText(title);
-        edit_des.setText(des);
+        edit_title.setText(title_view.getText().toString());
+        edit_des.setText(des_view.getText().toString());
 
         update.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -123,8 +124,12 @@ public class showImage extends AppCompatActivity {
                 documentReference.set(m).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void aVoid) {
-                        finish();
-                        startActivity(new Intent(getApplicationContext(),RImage.class));
+                       // finish();
+                        //startActivity(new Intent(getApplicationContext(),RImage.class));
+                        title_view.setText(title_String);
+                        des_view.setText(des_String);
+                        String total_time = date_edit+time_edit;
+                        date_view .setText(total_time);
                         Toast.makeText(getApplicationContext(),"Edit p",Toast.LENGTH_SHORT).show();
                     }
                 });

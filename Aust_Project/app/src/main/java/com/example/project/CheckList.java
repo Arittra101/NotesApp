@@ -3,6 +3,7 @@ package com.example.project;
 import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
@@ -53,6 +54,7 @@ public class CheckList extends AppCompatActivity implements  View.OnClickListene
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_check_list);
+        getWindow().setStatusBarColor(ContextCompat.getColor(CheckList.this,R.color.purple_2001));
          redobtn = findViewById(R.id.redo);
         floatingActionButton =  findViewById(R.id.addtask);
         redobtn.setOnClickListener(this);
@@ -252,7 +254,7 @@ public class CheckList extends AppCompatActivity implements  View.OnClickListene
 
         if(item.getItemId()==R.id.taskAdd)
         {
-            finish();
+          //  finish();
             startActivity(new Intent(getApplicationContext(),AddTask.class));
         }
         return super.onOptionsItemSelected(item);

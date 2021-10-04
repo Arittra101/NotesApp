@@ -13,6 +13,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -49,6 +50,7 @@ public class createNote extends AppCompatActivity implements View.OnClickListene
 
         Toolbar toolbar = findViewById(R.id.toolbarofcreateNote);
         setSupportActionBar(toolbar);
+        getWindow().setStatusBarColor(ContextCompat.getColor(createNote.this,R.color.purple_2001));
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 //
         firebaseUser = firebaseAuth.getCurrentUser();           //user inialize we can get id from it
@@ -73,6 +75,7 @@ public class createNote extends AppCompatActivity implements View.OnClickListene
                 Toast.makeText(getApplicationContext(),"Please",Toast.LENGTH_SHORT).show();
             }
             else
+
             {
                 DocumentReference documentReference = firebaseFirestore.collection("notes").document(firebaseUser.getUid()).collection("myNotes").document();
 //                DocumentReference documentReference = firebaseFirestore.collection("Notes").document();
@@ -102,7 +105,7 @@ public class createNote extends AppCompatActivity implements View.OnClickListene
                     public void onSuccess(Void aVoid) {
                         Toast.makeText(getApplicationContext(),"Done",Toast.LENGTH_SHORT).show();
                         finish();
-                        startActivity(new Intent(createNote.this,NoteFrame.class));
+                       // startActivity(new Intent(createNote.this,NoteFrame.class));
                     }
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override

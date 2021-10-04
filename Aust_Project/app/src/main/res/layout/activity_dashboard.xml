@@ -4,14 +4,17 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+
     tools:context=".Dashboard">
 
     <TextView
         android:id="@+id/title_view"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="50dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="16dp"
+        android:fontFamily="@font/aldrich"
+        android:gravity="center"
         android:text="DASHBOARD"
         android:textColor="@color/black"
         android:textSize="30dp"
@@ -23,6 +26,7 @@
         android:layout_height="match_parent"
         android:layout_below="@id/title_view"
         android:rowCount="3"
+        android:layout_marginTop="5dp"
         android:columnCount="2"
         android:layout_margin="10dp"
         android:layout_marginLeft="50dp"
@@ -40,7 +44,7 @@
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
             android:layout_margin="10dp"
-            app:cardBackgroundColor="@color/teal_200"
+            app:cardBackgroundColor="#9CCFCA"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="30dp"
             app:cardCornerRadius="8dp"
@@ -62,11 +66,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:fontFamily="@font/aldrich"
                     android:text="Notes"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
                     android:textAlignment="center"
-                    android:layout_gravity="center_horizontal"/>
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -84,7 +89,8 @@
             android:layout_gravity="fill"
             android:layout_rowWeight="1"
             android:layout_columnWeight="1"
-            app:cardBackgroundColor="@color/yellow"
+            app:cardBackgroundColor="#E4C976
+"
             android:layout_marginTop="30dp"
             android:layout_marginRight="20dp"
             android:layout_margin="10dp"
@@ -106,11 +112,12 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:fontFamily="@font/aldrich"
                     android:text="Check"
-                    android:textSize="18sp"
-                    android:textStyle="bold"
                     android:textAlignment="center"
-                    android:layout_gravity="center_horizontal"/>
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
         </androidx.cardview.widget.CardView>
@@ -130,7 +137,7 @@
 
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"
-            app:cardBackgroundColor="@color/white1"
+            app:cardBackgroundColor="#C6C0C0"
             app:cardCornerRadius="8dp"
             app:cardElevation="8dp">
 
@@ -150,6 +157,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:fontFamily="@font/aldrich"
                     android:text="PDF"
                     android:textAlignment="center"
                     android:textSize="18dp"
@@ -172,7 +180,7 @@
             android:layout_marginRight="20dp"
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"
-            app:cardBackgroundColor="@color/sky_blue"
+            app:cardBackgroundColor="#C399CA"
             app:cardCornerRadius="8dp"
             app:cardElevation="8dp">
 
@@ -192,6 +200,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:fontFamily="@font/aldrich"
                     android:text="IMAGE"
                     android:textAlignment="center"
                     android:textSize="18sp"
@@ -214,7 +223,7 @@
             android:layout_marginTop="30dp"
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"
-            app:cardBackgroundColor="#EF3B2D"
+            app:cardBackgroundColor="#9DC0DC"
             app:cardCornerRadius="8dp"
             app:cardElevation="8dp">
 
@@ -234,6 +243,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
+                    android:fontFamily="@font/aldrich"
                     android:text="Event"
                     android:textAlignment="center"
                     android:textSize="18sp"
@@ -256,7 +266,7 @@
             android:layout_marginRight="20dp"
             android:clickable="true"
             android:foreground="?android:attr/selectableItemBackground"
-            app:cardBackgroundColor="#B96DC6"
+            app:cardBackgroundColor="#AEDA7B"
             app:cardCornerRadius="8dp"
             app:cardElevation="8dp">
 
@@ -276,9 +286,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
-                    android:text="About"
+                    android:fontFamily="@font/aldrich"
+                    android:text="logOut"
                     android:textAlignment="center"
-                    android:textSize="20sp"
+                    android:textSize="18sp"
                     android:textStyle="bold" />
 
             </LinearLayout>

@@ -3,6 +3,7 @@ package com.example.project;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.core.content.ContextCompat;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -35,7 +36,7 @@ public class pdfUplpad extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pdf_uplpad);
-
+        getWindow().setStatusBarColor(ContextCompat.getColor(pdfUplpad.this,R.color.purple_2001));
         editText = findViewById(R.id.editText);
         upload = findViewById(R.id.uploadView);
         retrive = findViewById(R.id.retrieve);
