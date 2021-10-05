@@ -33,7 +33,7 @@
         >
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/noteView"
+
             android:foreground="?android:attr/selectableItemBackground"
             android:clickable="true"
             android:layout_width="wrap_content"
@@ -167,7 +167,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/imageView"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_row="1"
@@ -210,7 +210,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/reminderView"
+
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_row="2"

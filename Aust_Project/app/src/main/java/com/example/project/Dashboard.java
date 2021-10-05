@@ -19,9 +19,8 @@ public class Dashboard extends AppCompatActivity implements View.OnClickListener
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dashboard);
-        //getSupportActionBar().hide();
-
+        setContentView(R.layout.dash);
+        getSupportActionBar().hide();
         getWindow().setStatusBarColor(ContextCompat.getColor(Dashboard.this,R.color.purple_2001));
         noteCard = findViewById(R.id.noteView);
         noteCard.setOnClickListener(this);

@@ -60,9 +60,9 @@ public class addpicture extends AppCompatActivity implements View.OnClickListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_addpicture);
+        setContentView(R.layout.photoadd);
 
-        getSupportActionBar().hide();
+      //  getSupportActionBar().hide();
         getWindow().setStatusBarColor(ContextCompat.getColor(addpicture.this,R.color.purple_2001));
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat formatter1 = new SimpleDateFormat("HH:mm:ss");
