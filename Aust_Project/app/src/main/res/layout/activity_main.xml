@@ -27,7 +27,7 @@
            android:layout_width="match_parent"
            android:layout_height="wrap_content"
            android:text="Welcome Back"
-           android:textColor="#094AEA"
+           android:textColor="#8B5ECC"
            android:textSize="42sp"
            android:textStyle="bold">
 
@@ -37,7 +37,7 @@
            android:layout_height="wrap_content"
            android:text="Log in to Continue"
            android:textSize="23sp"
-           android:textColor="#094AEA">
+           android:textColor="#8B5ECC">
 
        </TextView>
 

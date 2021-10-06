@@ -16,27 +16,26 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Forget Password"
-        android:textSize="42dp"
-        android:textStyle="bold"
+        android:layout_above="@id/text1"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-       android:layout_above="@id/text1"
-        android:textColor="#595959"
-        ></TextView>
+        android:text="Forget Password"
+        android:textColor="#8B5ECC"
+        android:textSize="42dp"
+        android:textStyle="bold"></TextView>
+
     <TextView
+        android:id="@+id/text1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Get Your Password"
-        android:textSize="25sp"
+        android:layout_above="@id/center"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
-        android:id="@+id/text1"
-        android:textStyle="bold"
         android:layout_marginBottom="100dp"
-        android:layout_above="@id/center"
-        android:textColor="#595959"
-        ></TextView>
+        android:text="Get Your Password"
+        android:textColor="#8B5ECC"
+        android:textSize="25sp"
+        android:textStyle="bold"></TextView>
 
     <com.google.android.material.textfield.TextInputLayout
         android:layout_height="wrap_content"

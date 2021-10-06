@@ -3,15 +3,17 @@ package com.example.project;
 public class putPdf {
     String name;
     String url;
+    String time;
 
     putPdf()
     {
 
     }
-    putPdf(String name,String url){
+    putPdf(String name,String url,String time){
 
         this.name =  name;
         this.url =  url;
+        this.time = time;
     }
 
     public String getName() {
@@ -28,5 +30,13 @@ public class putPdf {
 
     public void setUrl(String url) {
         this.url = url;
+    }
+
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
     }
 }

@@ -28,7 +28,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
             android:textStyle="bold"
-            android:textColor="#094AEA"
+            android:textColor="#8B5ECC"
             ></TextView>
 
         <TextView
@@ -41,7 +41,7 @@
             android:layout_marginLeft="30dp"
             android:layout_marginRight="30dp"
 
-            android:textColor="#094AEA"
+            android:textColor="#8B5ECC"
             ></TextView>
 
     </LinearLayout>

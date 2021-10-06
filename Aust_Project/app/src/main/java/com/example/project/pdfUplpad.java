@@ -16,13 +16,21 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 
 public class pdfUplpad extends AppCompatActivity {
 
@@ -30,6 +38,8 @@ public class pdfUplpad extends AppCompatActivity {
     Button upload,retrive;
     StorageReference storageReference;
     DocumentReference documentReference;
+    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance();
     DatabaseReference databaseReference;
 
     @Override
@@ -43,8 +53,8 @@ public class pdfUplpad extends AppCompatActivity {
         retrive.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
-                startActivity(new Intent(getApplicationContext(),RetrievePdf.class));
+
+                startActivity(new Intent(getApplicationContext(),retrievepdfd.class));
             }
         });
         storageReference = FirebaseStorage.getInstance().getReference();
@@ -102,8 +112,26 @@ public class pdfUplpad extends AppCompatActivity {
                         Task<Uri> uriTask=taskSnapshot.getStorage().getDownloadUrl();
                         while (!uriTask.isComplete());
                         Uri uri =uriTask.getResult();
-                        putPdf putPDF=new putPdf(editText.getText().toString(),uri.toString());
-                        databaseReference.child(databaseReference.push().getKey()).setValue(putPDF);
+                        Date currentDate = new Date();
+                        SimpleDateFormat timeformat = new SimpleDateFormat("hh:mm:ss a");
+                        SimpleDateFormat dateFormat = new SimpleDateFormat("E, MMM dd yyyy");
+
+                        String date_edit = dateFormat.format(currentDate);
+                        String  time_edit =  timeformat.format(currentDate);
+                        String total = date_edit+" "+ time_edit;
+                       // putPdf putPDF=new putPdf(editText.getText().toString(),uri.toString());
+                        Map<String,Object> m = new HashMap<>();
+                        documentReference = firebaseFirestore.collection("notes").document(user.getUid()).collection("PDF").document();
+                        m.put("name",editText.getText().toString());
+                        m.put("url",uri.toString());
+                        m.put("time",total);
+                        documentReference.set(m).addOnSuccessListener(new OnSuccessListener<Void>() {
+                            @Override
+                            public void onSuccess(Void aVoid) {
+                                Toast.makeText(getApplicationContext(),"File Upload", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                     //   databaseReference.child(databaseReference.push().getKey()).setValue(putPDF);
                         Toast.makeText(getApplicationContext(),"File Upload", Toast.LENGTH_SHORT).show();
                         editText.setText("");
                         progressDialog.dismiss();
