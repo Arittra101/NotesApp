@@ -11,6 +11,10 @@ The main purpose of making this app is it's data backup system. When we were thi
 we thought that there are many types of notes app but all apps have no data privacy system. If we implement this kind of
 system in our app, it will ensure the user's privacy. For that reason, we are trying to build this app though many
 functionalities will be added.
+
+# How Our Project can be improved further :
+Due to lack of time and being a beginner in android Development, we couldn’t do many things. But we want to learn more
+material design and MVVM ARCHITECTURE to make this notes app a little more professional.
 ##  Minimum Android Version Requirement:
 
 ```python
