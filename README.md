@@ -24,6 +24,7 @@ Android Lollipop
 ##  Language Used:
 ```python
 Java
+XML
 ```
 
 ## Usage Dependencies
